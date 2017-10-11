@@ -3,14 +3,22 @@ import { StyleSheet, View, TextInput } from 'react-native';
 
 
 class LoginForm extends Component {
-  state = {  }
+  constructor(props) {
+    super(props);
+    state = {
+
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}> 
-        <TextInput 
+        <TextInput
+          onChangeText={this.props.handleUserInput}
           placeholder="username"
           style={styles.input} />
-        <TextInput 
+        <TextInput
+          onChangeText={ this.props.handlePasswordInput }
           placeholder="password"
           style={styles.input} />
       </View>
@@ -30,6 +38,5 @@ const styles = StyleSheet.create({
     color: 'black'
   }
 })
-
 
 export default LoginForm;
