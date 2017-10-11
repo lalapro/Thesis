@@ -168,8 +168,6 @@ const styles = StyleSheet.create({
   },
   marker: {
     width: 30,
-    height: 30,
-    // borderRadius: 4,
-    // backgroundColor: "rgba(230,4,150, 0.9)",
+    height: 30
   }
 });
