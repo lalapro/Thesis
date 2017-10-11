@@ -16,13 +16,13 @@ export default class App extends React.Component {
     this.goToSignUp = this.goToSignUp.bind(this);
     this.backToLogIn = this.backToLogIn.bind(this);
   }
-  
+
   LogInUser() {
     this.setState({
       isLoggedIn: true
     })
   }
-  
+
 
   goToSignUp() {
     this.setState({
@@ -36,6 +36,7 @@ export default class App extends React.Component {
     })
   }
 
+export default class App extends React.Component {
   render() {
     if (this.state.isLoggedIn) {
       return (
@@ -44,15 +45,15 @@ export default class App extends React.Component {
     } else {
       if (!this.state.signingUp) {
         return (
-          <Login 
-            LogInUser={ this.LogInUser } 
+          <Login
+            LogInUser={ this.LogInUser }
             goToSignUp={ this.goToSignUp }
             />
         )
       } else {
         return (
-          <Signup 
-            LogInUser={ this.LogInUser } 
+          <Signup
+            LogInUser={ this.LogInUser }
             backToLogIn={ this.backToLogIn }/>
         )
       }
