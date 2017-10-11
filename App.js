@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Login from './src/components/Login/Login.js'
 import Main from './src/components/Main.js'
 import Signup from './src/components/Login/Signup.js'
+import Map from './Map.js'
 
 
 export default class App extends React.Component {
@@ -36,11 +37,10 @@ export default class App extends React.Component {
     })
   }
 
-export default class App extends React.Component {
   render() {
     if (this.state.isLoggedIn) {
       return (
-        <Main />
+        <Map />
       )
     } else {
       if (!this.state.signingUp) {
