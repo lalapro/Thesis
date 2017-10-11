@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
 import{ StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
-import LoginForm from './LoginForm';
+import SignupForm from './SignupForm';
 
-export default class Login extends Component {
+export default class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      email: ""
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUserInput = this.handleUserInput.bind(this);
     this.handlePasswordInput = this.handlePasswordInput.bind(this);
+    this.handleEmailInput = this.handleEmailInput.bind(this);
   }
   
   handleSubmit() {
-    //send axios request to server to get request and check if the username and password are there
+    //send axios request to server to post request and check if the username and password are there
     this.props.LogInUser();
-
   }
 
   handleUserInput(event) {
@@ -28,6 +29,9 @@ export default class Login extends Component {
     this.setState({ password: event})
   }
 
+  handleEmailInput(event) {
+    this.setState({ email: event})
+  }
 
   render() {
     return (
@@ -37,14 +41,15 @@ export default class Login extends Component {
             style={styles.logo} 
             source={require("../../images/toastlogo.png")} 
           />
-          <Text>Build Habitats by keeping Good Habits</Text>
+          <Text>Do you want to start building good Habits?</Text>
         </View>
           
         <View style={styles.formContainer}>
-          <LoginForm
+          <SignupForm
             handleSubmit={this.handleSubmit}
             handleUserInput={this.handleUserInput}
             handlePasswordInput={this.handlePasswordInput}
+            handleEmailInput={this.handleEmailInput}
             />
         </View>
 
@@ -52,17 +57,16 @@ export default class Login extends Component {
           onPress={this.handleSubmit}
           style={styles.buttonContainer}
           >
-          <Text style={styles.buttonText}>LOGIN</Text> 
-        </TouchableOpacity>
-<<<<<<< HEAD
-=======
-        <TouchableOpacity 
-          onPress={this.props.goToSignUp}
-          style={styles.buttonContainer}
-          >
           <Text style={styles.buttonText}>SIGNUP</Text> 
         </TouchableOpacity>
->>>>>>> signupwithlogin
+
+        <TouchableOpacity 
+          onPress={this.props.backToLogIn}
+          style={styles.buttonContainer}
+          >
+          <Text style={styles.buttonText}>BACK</Text> 
+        </TouchableOpacity>
+
       </View>
     );
   }
