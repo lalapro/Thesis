@@ -1,94 +1,61 @@
-import React, { Component } from 'react';
-import { Platform, Text, View, StyleSheet, Button } from 'react-native';
-import { Constants, Location, Permissions, MapView } from 'expo';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import Login from './src/components/Login/Login.js'
+import Main from './src/components/Main.js'
+import Signup from './src/components/Login/Signup.js'
 
-export default class App extends Component {
-  state = {
-    location: null,
-    errorMessage: null,
-    longitude: 0,
-    latitude: 0,
-    coords: {},
-    markers: []
-  };
 
-  componentWillMount() {
-    if (Platform.OS === 'android' && !Constants.isDevice) {
-      this.setState({
-        errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
-      });
-    } else {
-      this._getLocationAsync();
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoggedIn: false,
+      signingUp: false
     }
+    this.LogInUser = this.LogInUser.bind(this);
+    this.goToSignUp = this.goToSignUp.bind(this);
+    this.backToLogIn = this.backToLogIn.bind(this);
+  }
+  
+  LogInUser() {
+    this.setState({
+      isLoggedIn: true
+    })
+  }
+  
+
+  goToSignUp() {
+    this.setState({
+      signingUp: true
+    })
   }
 
-  _getLocationAsync = async () => {
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== 'granted') {
-      this.setState({
-        errorMessage: 'Permission to access location was denied',
-      });
-    }
-
-    let location = await Location.getCurrentPositionAsync({});
-    // console.log(location.)
+  backToLogIn() {
     this.setState({
-      location: location,
-      longitude: location.coords.longitude,
-      latitude: location.coords.latitude,
-      coords: {
-        longitude: location.coords.longitude,
-        latitude: location.coords.latitude
-      }
-    });
-  };
-
-  hello = () => {
-    console.log('hello')
+      signingUp: false
+    })
   }
 
   render() {
-    if (this.state.longitude !== 0) {
-      console.log(this.state.coords)
+    if (this.state.isLoggedIn) {
       return (
-        <View style={styles.container}>
-          <Button
-            title='Show map'
-          />
-          <MapView
-            style={{flex: 0.65, alignSelf: 'stretch'}}
-            region={{
-              latitude: this.state.latitude,
-              longitude: this.state.longitude,
-              latitudeDelta: 0.0083,
-              longitudeDelta: 0.0074
-            }}>
-            <MapView.Marker draggable
-              title='Current Location'
-              coordinate={this.state.coords}
-              onDragEnd={(e) => this.setState({ coords: e.nativeEvent.coordinate })}
-            />
-          </MapView>
-        </View>
+        <Main />
       )
     } else {
-      return null
+      if (!this.state.signingUp) {
+        return (
+          <Login 
+            LogInUser={ this.LogInUser } 
+            goToSignUp={ this.goToSignUp }
+            />
+        )
+      } else {
+        return (
+          <Signup 
+            LogInUser={ this.LogInUser } 
+            backToLogIn={ this.backToLogIn }/>
+        )
+      }
     }
-
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
-  },
-  paragraph: {
-    margin: 24,
-    fontSize: 18,
-    textAlign: 'center',
-  },
-});
