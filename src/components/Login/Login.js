@@ -54,7 +54,11 @@ export default class Login extends Component {
           >
           <Text style={styles.buttonText}>LOGIN</Text>
         </TouchableOpacity>
+<<<<<<< HEAD
         <TouchableOpacity
+=======
+        <TouchableOpacity 
+>>>>>>> fix error in login
           onPress={this.props.goToSignUp}
           style={styles.buttonContainer}
           >
