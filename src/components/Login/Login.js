@@ -9,9 +9,25 @@ export default class Login extends Component {
       username: "",
       password: ""
     }
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleUserInput = this.handleUserInput.bind(this);
+    this.handlePasswordInput = this.handlePasswordInput.bind(this);
+  }
+  
+  handleSubmit() {
+    //send axios request to server to get request and check if the username and password are there
+    this.props.LogInUser();
+
   }
 
-  this.handleSubmit = this.hand
+  handleUserInput(event) {
+    this.setState({ username: event })
+  }
+
+  handlePasswordInput(event) {
+    this.setState({ password: event})
+  }
+
 
   render() {
     return (
@@ -25,10 +41,17 @@ export default class Login extends Component {
         </View>
           
         <View style={styles.formContainer}>
-          <LoginForm />
+          <LoginForm
+            handleSubmit={this.handleSubmit}
+            handleUserInput={this.handleUserInput}
+            handlePasswordInput={this.handlePasswordInput}
+            />
         </View>
 
-        <TouchableOpacity style={styles.buttonContainer}>
+        <TouchableOpacity 
+          onPress={this.handleSubmit}
+          style={styles.buttonContainer}
+          >
           <Text style={styles.buttonText}>LOGIN</Text> 
         </TouchableOpacity>
       </View>
