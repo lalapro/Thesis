@@ -1,9 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Login from './src/components/Login/Login.js';
-import Main from './src/components/Main.js'
+import Login from './src/components/Login/Login.js'
+import Home from './src/components/Home/Home.js'
 import Signup from './src/components/Login/Signup.js'
-
 
 export default class App extends React.Component {
   constructor(props) {
@@ -22,24 +21,20 @@ export default class App extends React.Component {
       isLoggedIn: true
     })
   }
-
-
   goToSignUp() {
     this.setState({
       signingUp: true
     })
   }
-
   backToLogIn() {
     this.setState({
       signingUp: false
     })
   }
-
   render() {
     if (this.state.isLoggedIn) {
       return (
-        <Main />
+        <Home />
       )
     } else {
       if (!this.state.signingUp) {
