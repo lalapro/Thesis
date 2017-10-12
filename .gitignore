@@ -1,8 +1,4 @@
 node_modules/
 .expo/
 npm-debug.*
-<<<<<<< HEAD
 .DS_Store
-=======
-.DS_Store
->>>>>>> myWork
