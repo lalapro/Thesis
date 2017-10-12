@@ -27,7 +27,12 @@ const NavigationBar = DrawerNavigator(
 		Map: {
 			path: '/map',
 			screen: Map
-		}
+		},
+		// Logout: {
+		// 	path: '/logout',
+		// 	screen: Logout
+		// }
+
 	},
 	{
 		initialRouteName: 'Profile', 
