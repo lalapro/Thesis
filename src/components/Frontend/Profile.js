@@ -130,9 +130,9 @@ export default class Profile extends Component {
 
 
 	      <View style={styles.location}>
-	      	<TextInput style={styles.input} placeholder="Make a title" placeholderTextColor="rgba(255, 255, 255, 0.7)" 
+	      	<TextInput style={styles.input} placeholder="Make a title" placeholderTextColor="rgba(255, 255, 255, 0.7)"
 	      	onChangeText={(title) => {this.setState({title: title})}} />
-	      	<TextInput style={styles.input} placeholder="Add Location Name" placeholderTextColor="rgba(255, 255, 255, 0.7)" 
+	      	<TextInput style={styles.input} placeholder="Add Location Name" placeholderTextColor="rgba(255, 255, 255, 0.7)"
 	      	onChange={(locationName) => {this.setState({locationName})}} />
 	      	<TextInput style={styles.input} placeholder="Add Location Address" placeholderTextColor="rgba(255, 255, 255, 0.7)"
 	      	onChange={(locationAddress) => {this.setState({locationAddress})}} />
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowOffset: { width: 4, height: 4 },
     shadowRadius: 5
-  }, 
+  },
 	location: {
 		flex: 1,
 		backgroundColor: 'blue',
@@ -206,28 +206,3 @@ const styles = StyleSheet.create({
 		borderColor: 'black'
 	}
 })
-
-// async function uploadImageAsync(uri) {
-// 	let apiUrl = 'https://file-upload-example-backend-dkhqoilqqn.now.sh/upload';
-//   console.log(uri, 'is it same uri')
-//   let uriParts = uri.split('.');
-//   let fileType = uri[uri.length - 1];
-//   let formData = new FormData();
-//   console.log(formData, 'FORM!!')
-//   formData.append('photo', {
-//     uri,
-//     name: `photo.${fileType}`,	
-//     type: `image/${fileType}`,
-//   });
-//   console.log(formData, 'AFTER FORM')
-
-//   let options = {
-//     method: 'POST',
-//     body: formData,
-//     headers: {
-//       Accept: 'application/json',
-//       'Content-Type': 'multipart/form-data',
-//     },
-//   };
-//   return fetch(apiUrl, options);
-// }

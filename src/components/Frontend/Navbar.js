@@ -9,17 +9,7 @@ import Profile from './Profile';
 import Main from '../Home/Home.js';
 
 const NavigationBar = DrawerNavigator(
-	{ 
-		// ' ': {
-		// 	path: '/',
-		// 	screen: Main,
-		// 	// navigationOptions: {	
-		// 	// 	drawerIcon: ({tintColor}) => {
-		// 	// 		<Image source={require('./Images/toast.png')} style={{width: 70, height: 70, marginLeft: 40}}
-		// 	// 		/>
-		// 	// 	}
-		// 	// }
-		// },
+	{
 		Profile: {
 			path: '/profile',
 			screen: Profile
@@ -35,7 +25,7 @@ const NavigationBar = DrawerNavigator(
 
 	},
 	{
-		initialRouteName: 'Profile', 
+		initialRouteName: 'Profile',
 		drawerPosition: 'left',
 		drawerWidth: 100,
 		alignItems: 'center',

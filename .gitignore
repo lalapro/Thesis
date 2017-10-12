@@ -3,3 +3,5 @@ node_modules/
 npm-debug.*
 watchman.exe
 watchman.pdb
+.env
+.DS_Store
