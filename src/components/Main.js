@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import Navbar from './Frontend/Navbar.js';
 
 class Main extends Component {
   constructor(props) {
@@ -11,8 +12,8 @@ class Main extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Hello this works</Text>
+      <View style={{flex: 1}}>
+        <Navbar />
       </View>
     );
   }
