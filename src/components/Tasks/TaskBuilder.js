@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import{ StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 import TaskForm from './TaskForm.js';
+import axios from 'axios';
 
 class TaskBuilder extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class TaskBuilder extends Component {
       endTime: null,
       location: '',
       category: '',
-      frequency: ''
+      frequency: '',
+      saved: null
     }
     this.handleTaskTitleChange = this.handleTaskTitleChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
@@ -55,8 +57,11 @@ class TaskBuilder extends Component {
   
   saveTask() {
     let body = this.state;
-
+    axios.post(/newTask, {body})
+      .then((response) => this.setState({saved: 'Task Saved'}))
+      .catch((err) => console.error(err))
   }
+
   render() {
     return(
       <View style={styles.container}>
