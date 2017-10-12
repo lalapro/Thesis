@@ -28,7 +28,6 @@ export default class Login extends Component {
     this.setState({ password: event})
   }
 
-
   render() {
     return (
       <View style={styles.container}>

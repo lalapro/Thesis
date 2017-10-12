@@ -1,5 +1,5 @@
 const routes = require('express').Router();
-const handleSignup = require('./controllers/signupHandler.js');
+const handleSignup = require('./signupHandler.js');
 
 routes.post('/signup', handleSignup);
 

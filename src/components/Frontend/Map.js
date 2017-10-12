@@ -36,7 +36,7 @@ export default class screens extends Component {
         },
         title: "Work",
         description: "Hack Reactor",
-        image: require("../../../assets/egg.png"),
+        image: require("../assets/egg.png"),
       },
       {
         coordinate: {
@@ -45,7 +45,7 @@ export default class screens extends Component {
         },
         title: "Home",
         description: "Mah House",
-        image: require("../../../assets/egg2.png"),
+        image: require("../assets/egg2.png"),
       },
       {
         coordinate: {
@@ -55,7 +55,7 @@ export default class screens extends Component {
         title: "School",
 
         description: "NYU",
-        image: require("../../../assets/egg3.png"),
+        image: require("../assets/egg3.png"),
       }],
       markerID: ["Work", "Home", "School"]
     }, () => {
@@ -110,7 +110,7 @@ export default class screens extends Component {
             </View>
           ))}
           <View style={styles.card}>
-            <Image source={require("../../../assets/plus.png")} style={styles.cardImage}/>
+            <Image source={require("../assets/plus.png")} style={styles.cardImage}/>
             <View style={styles.textContent}>
               <Text style={styles.cardtitle}>
                 Add a location
