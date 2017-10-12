@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Animated, Image, Dimensions } from "react-native";
+import { StyleSheet, Text, View, Animated, Image, Dimensions, Button } from "react-native";
 import { Components, MapView } from 'expo';
-
-// const MapView = Components.MapView;
+import { StackNavigator } from 'react-navigation';
+import Location from './AddLocation.js'
 
 
 const { width, height } = Dimensions.get("window");
@@ -10,7 +10,11 @@ const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
 
-export default class screens extends Component {
+class MapScreen extends Component {
+  static navigationOptions = {
+    title: 'Map',
+  };
+
   state = {
     markers: [],
     region: {
@@ -28,42 +32,15 @@ export default class screens extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      markers: [{
-        coordinate: {
-          latitude: 40.750673,
-          longitude: -73.976465,
-        },
-        title: "Work",
-        description: "Hack Reactor",
-        image: require("../assets/egg.png"),
-      },
-      {
-        coordinate: {
-          latitude: 40.7129109,
-          longitude: -73.9671834,
-        },
-        title: "Home",
-        description: "Mah House",
-        image: require("../assets/egg2.png"),
-      },
-      {
-        coordinate: {
-          latitude: 40.7295174,
-          longitude: -73.9975552,
-        },
-        title: "School",
-
-        description: "NYU",
-        image: require("../assets/egg3.png"),
-      }],
-      markerID: ["Work", "Home", "School"]
-    }, () => {
+    const { params } = this.props.navigation.state
+    console.log(params)
+    if (this.state.markers.length > 0) {
       setTimeout(() => this.map.fitToSuppliedMarkers(this.state.markerID, true), 350)
-    })
+    }
+    // })
   }
 
-  test(marker) {
+  zoom(marker) {
     this.map.animateToRegion(
       {
         ...marker.coordinate,
@@ -73,6 +50,8 @@ export default class screens extends Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
+    const { params } = this.props.navigation.state
     return (
       <View style={styles.container}>
         <MapView
@@ -97,7 +76,7 @@ export default class screens extends Component {
           contentContainerStyle={styles.endPadding}
         >
           {this.state.markers.map((marker, index) => (
-            <View style={styles.card} key={index} onTouchEnd={() => this.test(marker)}>
+            <View style={styles.card} key={index} onTouchEnd={() => this.zoom(marker)}>
               <Image source={marker.image} style={styles.cardImage}/>
               <View style={styles.textContent}>
                 <Text style={styles.cardtitle}>
@@ -110,7 +89,7 @@ export default class screens extends Component {
             </View>
           ))}
           <View style={styles.card}>
-            <Image source={require("../assets/plus.png")} style={styles.cardImage}/>
+            <Image source={require("../assets/plus.png")} style={styles.cardImage} onTouchEnd={() => navigate('Avatar')}/>
             <View style={styles.textContent}>
               <Text style={styles.cardtitle}>
                 Add a location
@@ -123,6 +102,52 @@ export default class screens extends Component {
   }
 }
 
+class Avatar extends React.Component {
+  static navigationOptions = {
+    title: 'Choose your ecobuddy!'
+  };
+
+  render() {
+    const { navigate } = this.props.navigation;
+    const { params } = this.props.navigation.state;
+    return (
+      <View style={styles.ecoContainer}>
+        {images.map((pic, key) => {
+          console.log(pic)
+          return (
+            <Image
+              source={pic}
+              style={styles.ecoBuds}
+              onTouchEnd={() => navigate('Location', {avatar: pic})}
+            />
+          )
+        })}
+      </View>
+    );
+  }
+}
+
+const images = [
+  require("../assets/egg.png"),
+  require("../assets/egg2.png"),
+  require("../assets/egg4.png"),
+  require("../assets/egg5.png"),
+  require("../assets/egg6.png")
+]
+
+
+const SimpleMap = StackNavigator({
+  Map: { screen: MapScreen },
+  Avatar: { screen: Avatar },
+  Location: { screen: Location },
+});
+
+
+export default class Map extends Component {
+  render() {
+    return <SimpleMap />;
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -169,5 +194,14 @@ const styles = StyleSheet.create({
   marker: {
     width: 30,
     height: 30
+  },
+  ecoContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  ecoBuds: {
+    width: 100,
+    height: 100
   }
 });
