@@ -18,7 +18,7 @@ export default class Profile extends Component {
     return (
       <View style={{flex: 1, backgroundColor: 'yellow', alignItems: 'center'}}>
       	<View style={styles.photo} >
-      		<Image style={{flex: 9}} source={require('../../images/toastlogo.png')}/>
+      		<Image style={{flex: 9}} source={require('../assets/toastlogo.png')}/>
 	      	<Text style={{flex: 1, textAlign: 'center'}} onPress={() => {}}>
 	      		Add Photo
 	      	</Text>

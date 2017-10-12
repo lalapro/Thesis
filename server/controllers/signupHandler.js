@@ -26,7 +26,7 @@ const handleSignup = (req, res) => {
               if (err) {
                 res.status(404).send(`Encountered error during post ${err}`)
               } else {
-                res.status(201).send(results.data);
+                res.status(201).send(results);
               }
             })
           })

@@ -4,17 +4,23 @@ import DatePicker from 'react-native-datepicker'
 class TaskDatePicker extends Component {
   constructor(props){
     super(props)
-    this.state = {date:"2017-10-11"}
+    this.state = {date: null}
+    this.showDateSelected = this.showDateSelected.bind(this);
   }
- 
+
+  showDateSelected(date) {
+    this.setState({date});
+    this.props.onSelect(date);
+  }
+  
   render(){
     return (
       <DatePicker
         style={{width: 200}}
         date={this.state.date}
-        mode="date"
-        placeholder="Date and Duration"
-        format="YYYY-MM-DD"
+        mode="datetime"
+        placeholder={this.props.placeholder}
+        format="MMMM Do YYYY, h:mm a"
         minDate="2017-08-01"
         maxDate="2018-08-01"
         confirmBtnText="Confirm"
@@ -27,11 +33,12 @@ class TaskDatePicker extends Component {
             marginLeft: 0
           },
           dateInput: {
+            marginTop: 10,
+            marginBottom: 5,
             marginLeft: 36
           }
-          // ... You can check the source to find the other keys. 
         }}
-        onDateChange={(date) => {this.props.onSelect(date)}}
+        onDateChange={(date) => {this.showDateSelected(date)}}
       />
     )
   }

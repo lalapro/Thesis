@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import{ StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
+import{ StyleSheet, View, Image, Text, TouchableOpacity, Button } from 'react-native';
 import TaskForm from './TaskForm.js';
 import axios from 'axios';
 
@@ -9,7 +9,6 @@ class TaskBuilder extends Component {
     this.state = {
       title: '',
       description: '',
-      date: '',
       startTime: null,
       endTime: null,
       location: '',
@@ -19,11 +18,12 @@ class TaskBuilder extends Component {
     }
     this.handleTaskTitleChange = this.handleTaskTitleChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-    this.handleDateChange = this.handleDateChange.bind(this);
-    this.handleDurationChange = this.handleDurationChange.bind(this);
+    this.handleStartChange = this.handleStartChange.bind(this);
+    this.handleEndChange = this.handleEndChange.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleFrequencyChange = this.handleFrequencyChange.bind(this);
+    this.handleCheck = this.handleCheck.bind(this);
     this.saveTask = this.saveTask.bind(this);
   }
 
@@ -35,12 +35,12 @@ class TaskBuilder extends Component {
     this.setState({description})
   }
 
-  handleDateChange(date) {
-    this.setState({date})
+  handleStartChange(startTime) {
+    this.setState({startTime})
   }
-  
-  handleDurationChange(startTime, endTime) {
-    this.setState({startTime, endTime})
+
+  handleEndChange(endTime) {
+    this.setState({endTime})
   }
 
   handleLocationChange(location) {
@@ -55,9 +55,13 @@ class TaskBuilder extends Component {
     this.setState({frequency})
   }
   
+  handleCheck(day) {
+    
+  }
+
   saveTask() {
     let body = this.state;
-    axios.post(/newTask, {body})
+    axios.post('/newTask', {body})
       .then((response) => this.setState({saved: 'Task Saved'}))
       .catch((err) => console.error(err))
   }
@@ -65,15 +69,19 @@ class TaskBuilder extends Component {
   render() {
     return(
       <View style={styles.container}>
-        <View style={styles.formContainer}>
+        <View>
           <TaskForm 
             handleTaskTitleChange={this.handleTaskTitleChange}
             handleDescriptionChange={this.handleDescriptionChange} 
-            handleDateChange={this.handleDateChange}
-            handleDurationChange={this.handleDurationChange}
+            handleStartChange={this.handleStartChange}
+            handleEndChange={this.handleEndChange}
             handleLocationChange={this.handleLocationChange}
             handleCategoryChange={this.handleCategoryChange}
             handleFrequencyChange={this.handleFrequencyChange}
+          />
+          <Button
+            onPress={this.saveTask}
+            title="Save Task"
           />
         </View>
       </View>
@@ -88,32 +96,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center'
-  },
-  logoContainer: {
-    alignItems: 'center',
-    // flexGrow: 1,
-    justifyContent: 'center'
-  },
-  logo: {
-    width: 100,
-    height: 100,
-  },
-  formContainer: {
-    // alignItems: 'center',
-    // justifyContent: 'center'
-  },
-  buttonContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 40,
-    borderWidth: 1,
-    borderColor: 'black',
-    paddingVertical: 10
-  },
-  buttonText: {
-    textAlign: 'center',
-    fontWeight: '700',
-    paddingHorizontal: 10
   }
 });
 
