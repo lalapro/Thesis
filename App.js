@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
 import Login from './src/components/Login/Login.js';
 import Main from './src/components/Main.js';
 import Signup from './src/components/Login/Signup.js';
 import TaskBuilder from './src/components/Tasks/TaskBuilder.js';
 import Map from './src/components/Frontend/Map.js';
+import Home from './src/components/Home/Home.js'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -26,19 +26,17 @@ export default class App extends React.Component {
       isLoggedIn: true
     })
   }
-
+  
   goToSignUp() {
     this.setState({
       signingUp: true
     })
   }
-
   backToLogIn() {
     this.setState({
       signingUp: false
     })
   }
-
   render() {
     if (this.state.createdAccount) {
       return (
@@ -46,7 +44,7 @@ export default class App extends React.Component {
       )
     } else if (this.state.isLoggedIn) {
       return (
-        <Main />
+        <Home />
       )
     }  else {
       if (!this.state.signingUp) {
