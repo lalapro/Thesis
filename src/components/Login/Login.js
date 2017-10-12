@@ -13,7 +13,7 @@ export default class Login extends Component {
     this.handleUserInput = this.handleUserInput.bind(this);
     this.handlePasswordInput = this.handlePasswordInput.bind(this);
   }
-  
+
   handleSubmit() {
     //send axios request to server to get request and check if the username and password are there
     this.props.LogInUser();
@@ -34,12 +34,12 @@ export default class Login extends Component {
       <View style={styles.container}>
         <View style={styles.logoContainer}>
           <Image
-            style={styles.logo} 
-            source={require("../../images/toastlogo.png")} 
+            style={styles.logo}
+            source={require("../../images/toastlogo.png")}
           />
           <Text>Build Habitats by keeping Good Habits</Text>
         </View>
-          
+
         <View style={styles.formContainer}>
           <LoginForm
             handleSubmit={this.handleSubmit}
@@ -48,17 +48,17 @@ export default class Login extends Component {
             />
         </View>
 
-        <TouchableOpacity 
+        <TouchableOpacity
           onPress={this.handleSubmit}
           style={styles.buttonContainer}
           >
-          <Text style={styles.buttonText}>LOGIN</Text> 
+          <Text style={styles.buttonText}>LOGIN</Text>
         </TouchableOpacity>
         <TouchableOpacity 
           onPress={this.props.goToSignUp}
           style={styles.buttonContainer}
           >
-          <Text style={styles.buttonText}>SIGNUP</Text> 
+          <Text style={styles.buttonText}>SIGNUP</Text>
         </TouchableOpacity>
       </View>
     );
