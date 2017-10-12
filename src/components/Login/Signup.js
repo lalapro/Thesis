@@ -15,7 +15,7 @@ export default class Signup extends Component {
     this.handlePasswordInput = this.handlePasswordInput.bind(this);
     this.handleEmailInput = this.handleEmailInput.bind(this);
   }
-  
+
   handleSubmit() {
     //send axios request to server to post request and check if the username and password are there
     this.props.LogInUser();
@@ -36,12 +36,12 @@ export default class Signup extends Component {
       <View style={styles.container}>
         <View style={styles.logoContainer}>
           <Image
-            style={styles.logo} 
-            source={require("../assets/toastlogo.png")} 
+            style={styles.logo}
+            source={require("../assets/toastlogo.png")}
           />
           <Text>Do you want to start building good Habits?</Text>
         </View>
-          
+
         <View style={styles.formContainer}>
           <SignupForm
             handleSubmit={this.handleSubmit}
@@ -51,18 +51,18 @@ export default class Signup extends Component {
             />
         </View>
 
-        <TouchableOpacity 
+        <TouchableOpacity
           onPress={this.handleSubmit}
           style={styles.buttonContainer}
           >
-          <Text style={styles.buttonText}>SIGNUP</Text> 
+          <Text style={styles.buttonText}>SIGNUP</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
+        <TouchableOpacity
           onPress={this.props.backToLogIn}
           style={styles.buttonContainer}
           >
-          <Text style={styles.buttonText}>BACK</Text> 
+          <Text style={styles.buttonText}>BACK</Text>
         </TouchableOpacity>
 
       </View>

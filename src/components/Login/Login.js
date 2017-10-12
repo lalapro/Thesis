@@ -53,7 +53,7 @@ export default class Login extends Component {
           >
           <Text style={styles.buttonText}>LOGIN</Text>
         </TouchableOpacity>
-        <TouchableOpacity 
+        <TouchableOpacity
           onPress={this.props.goToSignUp}
           style={styles.buttonContainer}
           >
