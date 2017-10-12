@@ -34,7 +34,7 @@ export default class Login extends Component {
         <View style={styles.logoContainer}>
           <Image
             style={styles.logo}
-            source={require("../../images/toastlogo.png")}
+            source={require("../assets/toastlogo.png")}
           />
           <Text>Build Habitats by keeping Good Habits</Text>
         </View>
