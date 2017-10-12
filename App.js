@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 import Login from './src/components/Login/Login.js';
 import Signup from './src/components/Login/Signup.js';
 import TaskBuilder from './src/components/Tasks/TaskBuilder.js';
@@ -21,11 +21,9 @@ export default class App extends React.Component {
   }
 
   LogInUser() {
-    this.setState({
-      isLoggedIn: true
-    })
+    AsyncStorage.setItem('isLoggedIn', JSON.stringify(true));
+    this.setState({isLoggedIn: true});
   }
-  
   goToSignUp() {
     this.setState({
       signingUp: true
@@ -36,6 +34,15 @@ export default class App extends React.Component {
       signingUp: false
     })
   }
+  componentDidMount() {
+    AsyncStorage.getItem('isLoggedIn')
+      .then((value) => {
+        JSON.parse(value);
+        this.setState({isLoggedIn: value});
+      })
+      .done();
+  }
+
   render() {
     if (this.state.createdAccount) {
       return (
