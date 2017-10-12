@@ -1,9 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+
 import Login from './src/components/Login/Login.js';
 import Main from './src/components/Main.js';
 import Signup from './src/components/Login/Signup.js';
 import TaskBuilder from './src/components/Tasks/TaskBuilder';
+import Map from './Map.js'
 
 export default class App extends React.Component {
   constructor(props) {
