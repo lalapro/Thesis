@@ -6,7 +6,7 @@ import { DrawerNavigator } from 'react-navigation';
 // import SecondScreen from './SecondScreen';
 import Map from './Map.js';
 import Profile from './Profile';
-import Main from '../Main.js';
+import Main from '../Home/Home.js';
 
 const NavigationBar = DrawerNavigator(
 	{ 
