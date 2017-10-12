@@ -1,27 +1,131 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
+import { Modal, StyleSheet, Text, View, Image, TextInput, Button, Clipboard, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { Camera, Permissions, ImagePicker, Expo } from 'expo';
 
 export default class Profile extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			title: '',
-			locationName: '',
-			location: ''
-		}	
+			hasCameraPermission: null,
+			type: Camera.Constants.Type.back,
+			image: require('../assets/Profile.png'),
+			uploading: false,
+			visibleModal: false
+		}
+		// this.takePhoto = this.takePhoto.bind(this);
+		// this.pickPhoto = this.pickPhoto.bind(this);
+		// this.handlePicture = this.handlePicture.bind(this);
+		this.showModal = this.showModal.bind(this);
 	}
-	
+
+	// async componentWillMount() {
+	// 	console.log('MOUNTED!')
+	// 	const { status } = await Permissions.getAsync(Permissions.CAMERA);
+	// 	if (status !== 'granted') {
+	// 		alert('ITS NOT ACCEPTED!')
+	// 	} else {
+	// 		this.takePhoto()
+	// 	}
+	// }
+
+	pickPhoto = async () => {
+	let picture = await ImagePicker.launchImageLibraryAsync({
+		allowsEditing: true,
+		aspect: [4, 3]
+	});
+	this.handlePicture(picture);
+	}
+
+	takePhoto = async () => {
+		console.log('Invoked!!')
+		const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    this.setState({ hasCameraPermission: status === 'granted' })
+    let picture = await ImagePicker.launchCameraAsync({
+			allowsEditing: true,
+			aspect: [4, 3]
+		})
+		.catch(err => console.log(err, 'ERR!!!'))
+		this.handlePicture(picture);
+	}
+
+	handlePicture = async picture => {
+		try {
+			this.setState({ image: picture.uri });
+			if (!picture.cancelled) {
+			console.log(picture)
+			}
+		} catch (e) {
+			console.log({ e }, 'error!');
+			alert('This is not working');
+		} finally {
+			this.setState({ uploading: false });
+		}
+	}
+
+	showModal(stat) {
+		console.log(stat, 'working')
+		this.setState({ visibleModal: stat })
+	}
+
+	uploadPhoto = () => {
+		let { image } = this.state;
+		if (!image) alert('you dont have image!');
+			else {return (
+	      <View
+	        style={{
+	          marginTop: 30,
+	          width: 250,
+	          borderRadius: 3,
+	          elevation: 2,
+	          shadowColor: 'rgba(0,0,0,1)',
+	          shadowOpacity: 0.2,
+	          shadowOffset: { width: 4, height: 4 },
+	          shadowRadius: 5,
+	        }}>
+	        <View
+	          style={{
+	            borderTopRightRadius: 3,
+	            borderTopLeftRadius: 3,
+	            overflow: 'hidden',
+	          }}>
+	          <Image source={{ uri: image }} style={{ width: 250, height: 250 }} />
+	        </View>
+	        <Text
+	        	// onPress={this.CameraPermission.bind(this)}
+	          // onPress={this.takePhoto}
+	          // onLongPress={this.share}
+	          style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
+	          {image}
+	        </Text>
+	      </View>
+		    );
+			}
+		};
+
+  // addPhoto = () => {
+  // 	Clipboard.setString(this.state.image);
+  // 		alert('Hi');
+  // };
+
+	// UploadPhoto(event) {
+		// console.log('clicked', event)
+	// 	const { status } = await Permissions.askAsync(Permissions.CAMERA);
+	// 	this.setState({ hasCameraPermission: status === 'granted'	});
+	// }
 
   
  	render() {
- 		console.log(this.state.title)
+ 		// let Hidden = () => {
+ 		// 	return this.state.showDiv ? <View style={{marignRight: 10, position: 'absolute' }}>
+ 		// 		<Button onPress={this.takePhoto} title={`Take a Photo`}/>
+ 		// 		<Button onPress={this.pickPhoto} title={`Select from Library`}/>
+ 		// 	</View> : null;
+ 		// }
     return (
       <View style={{flex: 1, backgroundColor: 'yellow', alignItems: 'center'}}>
-      	<View style={styles.photo} >
-      		<Image style={{flex: 9}} source={require('../../images/toastlogo.png')}/>
-	      	<Text style={{flex: 1, textAlign: 'center'}} onPress={() => {}}>
-	      		Add Photo
-	      	</Text>
+      	<View style={{flex: 1}}>
+      		<Image style={styles.photo} source={{uri: `${this.state.image}`}} />
+     			<Button onPress={() => this.showModal(!this.state.visibleModal)} title={'Edit'} style={{flex: 1}}/>
 	      </View>
 
 
@@ -36,18 +140,46 @@ export default class Profile extends Component {
 
 
       	<View style={styles.map} />
-      </View>
+	        <Modal
+	          animationType="slide"
+	          transparent={true}
+	          visible={this.state.visibleModal}
+	          onRequestClosed={() => {alert('Photo is not selected!!')}}
+	        >
+	         <View>
+	            <View style={{height: 470, opacity: 0}}>
+	            	<Image source={require('../assets/toastlogo.png')} style={{height: 430, opacity: 0}}/>
+	            </View>
+	            <View style={{height: 200, backgroundColor: '#ddd', opacity: 0.7, marginTop: 20}}>
+	            	<Button title={`Take a photo`} onPress={this.takePhoto} style={styles.button} />
+	            	<Button title={`Photo from library`} onPress={this.pickPhoto} style={styles.button} />
+	            	<Button title={`Close`} onPress={() => {this.showModal(!this.state.visibleModal)}} style={styles.button} />
+		          </View>
+	          </View>
+	        </Modal>
+	      </View>
     );
   }
 }
 
+		            // <Button onPress={this.showModal(!this.state.visibleModal)}>
+		            // Close
+		            // </Button>
+
 const styles = StyleSheet.create({
 	photo: {
-		backgroundColor: 'green',
-		flex: 1,
-		height: '80%',
-		width: '60%'
-	},
+		backgroundColor: 'black',
+		flex: 9,
+		marginTop: 10,
+    width: 200,
+    borderRadius: 70,
+    opacity: 0.7,
+    borderBottomLeftRadius: 50,
+    shadowColor: 'rgba(0,0,0,1)',
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 4, height: 4 },
+    shadowRadius: 5
+  }, 
 	location: {
 		flex: 1,
 		backgroundColor: 'blue',
@@ -65,5 +197,37 @@ const styles = StyleSheet.create({
 		backgroundColor: 'rgba(255, 255, 255, 0.3)',
 		marginTop: 5,
 		paddingHorizontal: 10
+	},
+	button: {
+		backgroundColor: '#fff',
+		marginBottom: 10,
+		borderRadius: 30,
+		borderWidth: 3,
+		borderColor: 'black'
 	}
 })
+
+// async function uploadImageAsync(uri) {
+// 	let apiUrl = 'https://file-upload-example-backend-dkhqoilqqn.now.sh/upload';
+//   console.log(uri, 'is it same uri')
+//   let uriParts = uri.split('.');
+//   let fileType = uri[uri.length - 1];
+//   let formData = new FormData();
+//   console.log(formData, 'FORM!!')
+//   formData.append('photo', {
+//     uri,
+//     name: `photo.${fileType}`,	
+//     type: `image/${fileType}`,
+//   });
+//   console.log(formData, 'AFTER FORM')
+
+//   let options = {
+//     method: 'POST',
+//     body: formData,
+//     headers: {
+//       Accept: 'application/json',
+//       'Content-Type': 'multipart/form-data',
+//     },
+//   };
+//   return fetch(apiUrl, options);
+// }
