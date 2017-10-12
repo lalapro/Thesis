@@ -8,9 +8,9 @@ export default class Profile extends Component {
 			title: '',
 			locationName: '',
 			location: ''
-		}	
+		}
 	}
-	
+
 
   
  	render() {
@@ -18,7 +18,7 @@ export default class Profile extends Component {
     return (
       <View style={{flex: 1, backgroundColor: 'yellow', alignItems: 'center'}}>
       	<View style={styles.photo} >
-      		<Image style={{flex: 9}} source={require('../../images/toastlogo.png')}/>
+      		<Image style={{flex: 9}} source={require('../assets/toastlogo.png')}/>
 	      	<Text style={{flex: 1, textAlign: 'center'}} onPress={() => {}}>
 	      		Add Photo
 	      	</Text>
@@ -26,9 +26,9 @@ export default class Profile extends Component {
 
 
 	      <View style={styles.location}>
-	      	<TextInput style={styles.input} placeholder="Make a title" placeholderTextColor="rgba(255, 255, 255, 0.7)" 
+	      	<TextInput style={styles.input} placeholder="Make a title" placeholderTextColor="rgba(255, 255, 255, 0.7)"
 	      	onChangeText={(title) => {this.setState({title: title})}} />
-	      	<TextInput style={styles.input} placeholder="Add Location Name" placeholderTextColor="rgba(255, 255, 255, 0.7)" 
+	      	<TextInput style={styles.input} placeholder="Add Location Name" placeholderTextColor="rgba(255, 255, 255, 0.7)"
 	      	onChange={(locationName) => {this.setState({locationName})}} />
 	      	<TextInput style={styles.input} placeholder="Add Location Address" placeholderTextColor="rgba(255, 255, 255, 0.7)"
 	      	onChange={(locationAddress) => {this.setState({locationAddress})}} />

@@ -17,7 +17,6 @@ export default class App extends React.Component {
     this.LogInUser = this.LogInUser.bind(this);
     this.goToSignUp = this.goToSignUp.bind(this);
     this.backToLogIn = this.backToLogIn.bind(this);
-    // this.createAccount = this.createAccount.bind(this);
   }
 
   LogInUser() {
@@ -25,7 +24,7 @@ export default class App extends React.Component {
       isLoggedIn: true
     })
   }
-  
+
   goToSignUp() {
     this.setState({
       signingUp: true
@@ -55,8 +54,8 @@ export default class App extends React.Component {
         )
       } else {
         return (
-          <Signup 
-            LogInUser={ () => {this.setState({createdAccount: true})}} 
+          <Signup
+            LogInUser={ () => {this.setState({createdAccount: true})}}
             backToLogIn={ this.backToLogIn }/>
         )
       }
