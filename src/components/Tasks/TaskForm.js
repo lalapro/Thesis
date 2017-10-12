@@ -12,35 +12,55 @@ class TaskForm extends Component {
 
   render() {
     return(
-      <View>
+      <View style={styles.container}>
         <TextInput 
-          onChangeText={this.props.handleTaskTitle}
+          onChangeText={(title) => this.props.handleTaskTitle(title)}
           placeholder="Name of Task"
+          style={styles.input} 
         />
         <TextInput
-          onChangeText={this.props.handleDescriptionChange}
+          onChangeText={(description) => this.props.handleDescriptionChange(description)}
           placeholder="Description"
+          style={styles.input} 
         />
-        <TaskDatePicker onSelect={this.handleDateChange} />
+        <TaskDatePicker onSelect={() => this.handleDateChange()} />
         <TextInput
-          onChangeText={this.props.handleDurationChange}
+          onChangeText={() => this.props.handleDurationChange()}
           placeholder="Duration"
+          style={styles.input} 
         />
         <TextInput
-          onChangeText={this.props.handleLocationChange}
+          onChangeText={() => this.props.handleLocationChange()}
           placeholder="Attach a Location"
+          style={styles.input} 
         />
         <TextInput
-          onChangeText={this.props.handleCategoryChange}
+          onChangeText={() => this.props.handleCategoryChange()}
           placeholder="Attach a Category"
+          style={styles.input} 
         />
         <TextInput
-          onChangeText={this.props.handleFrequencyChange}
+          onChangeText={() => this.props.handleFrequencyChange()}
           placeholder="Does not repeat"
+          style={styles.input} 
         />
       </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 10
+  },
+  input: {
+    height: 40,
+    marginTop: 10,
+    paddingHorizontal: 10,
+    color: '#8A7D80',
+    borderColor: '#8A7D80', 
+    borderWidth: 1
+  }
+});
 
 export default TaskForm;
