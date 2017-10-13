@@ -13,24 +13,28 @@ const handlenNewTask = (req, res) => {
   let Category = req.body.category;
   let Marker = req.body.location;
   let Username = req.body.username;
-
+  console.log(req.body, 'or', req.query, 'or', req.params)
   let selectUsername = `SELECT ID FROM User WHERE Username = '${Username}'`;
   let selectCategory = `SELECT ID FROM CategoryDeets WHERE Category = '${Category}'`;
   let selectMarker = `SELECT ID FROM Marker WHERE Title = '${Marker}'`;
 
   db.query(selectUsername, null, (err, results) => {
     if (err) {
+      console.log("one")
       res.status(404).send(`We encountered an error looking up your information ${err}`);
     } else {
-      let User_ID = results[0].ID;
+      let User_ID = 2;
+      // results[0].ID || 
       db.query(selectCategory, null, (err, results) => {
         if (err) {
+          console.log("two")
           res.status(404).send(`We encountered an error looking up the category ${err}`);
         } else {
           let Category_ID;
           results[0] ? Category_ID = results[0].ID : Category_ID = 'undefined';
           db.query(selectMarker, null, (err, results) => {
             if (err) {
+              console.log("three")
               res.status(404).send(`We encountered an error looking up the location ${err}`);
             } else {
               let Marker_ID;
@@ -38,6 +42,7 @@ const handlenNewTask = (req, res) => {
               let insert = `INSERT INTO Tasks (ID, Title, Description, Completion, Start, End, Frequency, Days, User_ID, Category_ID, Marker_ID) VALUES (null, '${Title}', '${Description}', null, '${Start}', '${End}', '${Frequency}', '${Days}', '${User_ID}', '${Category_ID}', '${Marker_ID}')`
               db.query(insert, null, (err, results) => {
                 if (err) {
+                  console.log("four", err)
                   res.status(404).send(`We encountered an error creating the task ${err}`);
                 } else {
                   res.status(201).send(results);

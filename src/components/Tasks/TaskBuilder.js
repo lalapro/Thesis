@@ -61,9 +61,9 @@ class TaskBuilder extends Component {
 
   saveTask() {
     let body = this.state;
-    axios.post('/newTask', {body})
+    axios.post('http://10.16.1.218:3000/newTask', {body})
       .then((response) => this.setState({saved: 'Task Saved'}))
-      .catch((err) => console.error(err))
+      .catch((err) => console.error('whaaaaaa', err))
   }
 
   render() {
