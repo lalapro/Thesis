@@ -1,5 +1,4 @@
 const express = require('express');
-const sequelize = require('sequelize');
 const db = require('../../db/index.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -10,13 +9,14 @@ const handleSignup = (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
 
-  let select = `SELECT * FROM User WHERE Name = '${username}'`;
+  let select = `SELECT ID FROM User WHERE Username = '${username}'`;
   
   db.query(select, null, (err, results) => {
     if (err) {
       res.status(404).send(`Encountered error during post ${err}`);
     } else {
-      if (results.data) {
+      console.log(results)
+      if (results.length > 0) {
         res.status(404).send(`Username already exists.`);
       } else {
         bcrypt.genSalt(saltRounds, (err, salt) => {
@@ -26,7 +26,7 @@ const handleSignup = (req, res) => {
               if (err) {
                 res.status(404).send(`Encountered error during post ${err}`)
               } else {
-                res.status(201).send(results.data);
+                res.status(201).send(results);
               }
             })
           })

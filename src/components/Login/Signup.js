@@ -36,8 +36,8 @@ export default class Signup extends Component {
       <View style={styles.container}>
         <View style={styles.logoContainer}>
           <Image
-            style={styles.logo}
-            source={require("../assets/toastlogo.png")}
+            style={styles.logo} 
+            source={require("../assets/toastlogo.png")} 
           />
           <Text>Do you want to start building good Habits?</Text>
         </View>
