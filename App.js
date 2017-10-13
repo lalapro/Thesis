@@ -12,16 +12,20 @@ export default class App extends React.Component {
     this.state = {
       isLoggedIn: false,
       signingUp: false,
-      createdAccount: false
+      createdAccount: false,
+      user: {}
     }
     this.LogInUser = this.LogInUser.bind(this);
     this.goToSignUp = this.goToSignUp.bind(this);
     this.backToLogIn = this.backToLogIn.bind(this);
   }
 
-  LogInUser() {
+  LogInUser(user) {
     AsyncStorage.setItem('isLoggedIn', JSON.stringify(true));
-    this.setState({isLoggedIn: true});
+    this.setState({
+      isLoggedIn: true,
+      user: user
+    });
   }
   goToSignUp() {
     this.setState({

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import{ StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
+
+import axios from 'axios';
+
 import LoginForm from './LoginForm';
 
 export default class Login extends Component {
@@ -15,9 +18,22 @@ export default class Login extends Component {
   }
 
   handleSubmit() {
-    //send axios request to server to get request and check if the username and password are there
-    this.props.LogInUser();
+    let username = this.state.username;
+    let password = this.state.password;
 
+    axios.get('/login', {
+      params: {
+        username: username,
+        password: password
+      }
+    })
+      .then((res) => {
+        console.log(res);
+        //this.props.LogInUser(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   handleUserInput(event) {

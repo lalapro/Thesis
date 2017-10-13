@@ -17,7 +17,19 @@ export default class Signup extends Component {
   }
 
   handleSubmit() {
-    //send axios request to server to post request and check if the username and password are there
+    let username = this.state.username;
+    let password = this.state.password;
+    axios.post('/signup', {
+      username: username,
+      password: password
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((res) => {
+      console.log(res);
+    })
+
     this.props.LogInUser();
   }
 
