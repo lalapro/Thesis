@@ -5,22 +5,20 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 const handleLogin = (req, res) => {
-  let username = req.body.username;
-  let password = req.body.password;
+  let username = req.query.username;
+  let password = req.query.password;
 
   let select = `SELECT * FROM User WHERE Username ='${username}'`;
-
   db.query(select, null, (err, results) => {
     if (err) {
-      res.status(404).send(`Encountered error during post ${err}`);
+      res.send('error in login query', err);
     } else {
-      if (results.data) {
-        res.send(results.data);
-        bcrypt.compare(password, results.data.password, function(err, result) {
+      if (results) {
+        bcrypt.compare(password, results[0].Hash_Password, function(err, result) {
           if (result === true) {
-            return callback(null, user);
+            res.send(results[0]);
           } else {
-            return callback();
+            res.send('error in bcrypcompare');
           }
         })
       }
