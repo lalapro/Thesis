@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, Image } from 'react-native';
+import { Text, Image, Button } from 'react-native';
 import { DrawerNavigator } from 'react-navigation';
 
 // import FirstScreen from './FirstScreen';
@@ -7,6 +7,8 @@ import { DrawerNavigator } from 'react-navigation';
 import Map from './Map.js';
 import Profile from './Profile';
 import Main from '../Home/Home.js';
+import Login from '../Login/Login.js'
+
 
 const NavigationBar = DrawerNavigator(
 	{
@@ -18,10 +20,9 @@ const NavigationBar = DrawerNavigator(
 			path: '/map',
 			screen: Map
 		},
-		// Logout: {
-		// 	path: '/logout',
-		// 	screen: Logout
-		// }
+		Logout: {
+			screen: Login
+		}
 
 	},
 	{
