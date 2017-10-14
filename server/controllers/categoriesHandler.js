@@ -3,6 +3,7 @@ const db = require('../../db/index.js');
 
 const handleCategories = (req, res) => {
   let username = req.query.username;
+  let selectUserID = `SELECT ID FROM User WHERE Username = '${username}'`;
   db.query(selectUserID, null, (err, results) => {
     if (err) {
       res.status(404).send(`We encountered an error looking up your information ${err}`);

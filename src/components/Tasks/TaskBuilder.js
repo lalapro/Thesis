@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import{ StyleSheet, View, Image, Text, TouchableOpacity, Button, Picker } from 'react-native';
 import TaskForm from './TaskForm.js';
 import axios from 'axios';
+import TaskModal from '../TaskView/TaskModal.js';
 
 class TaskBuilder extends Component {
   constructor(props) {
@@ -14,7 +15,8 @@ class TaskBuilder extends Component {
       location: '',
       category: '',
       frequency: '',
-      saved: null
+      saved: null,
+      allTasks: null
     }
     this.handleTaskTitleChange = this.handleTaskTitleChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
@@ -82,6 +84,15 @@ class TaskBuilder extends Component {
       .catch((err) => console.error(err))
   }
 
+  componentDidMount() {
+    axios.get('http://10.16.1.218:3000/tasks', {params: {User_ID: 2}})
+      .then((response) => {
+        let allTasks = response.data;
+        console.log(allTasks)
+        this.setState({allTasks}, () => console.log(this.state.allTasks));
+      })
+  }
+
   render() {
     return(
       <View style={styles.container}>
@@ -97,6 +108,9 @@ class TaskBuilder extends Component {
         />
         {this.state.saved ? 
           <Text>Task Saved!</Text> : <Text>Don't forget to save.</Text>
+        }
+        {this.state.allTasks ? 
+          <TaskModal allTasks={this.state.allTasks} marker_Id="3"/> : <View></View>
         }
       </View>
     )
