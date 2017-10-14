@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import{ StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
+
+import axios from 'axios';
+
 import SignupForm from './SignupForm';
 
 export default class Signup extends Component {
@@ -19,9 +22,11 @@ export default class Signup extends Component {
   handleSubmit() {
     let username = this.state.username;
     let password = this.state.password;
-    axios.post('/signup', {
+    let email = this.state.email;
+    axios.post('http://10.16.1.131:3000/signup', {
       username: username,
-      password: password
+      password: password,
+      email: email
     })
     .then((res) => {
       console.log(res);
@@ -30,7 +35,7 @@ export default class Signup extends Component {
       console.log(res);
     })
 
-    this.props.LogInUser();
+    this.props.logInUser();
   }
 
   handleUserInput(event) {

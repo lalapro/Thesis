@@ -9,14 +9,15 @@ const handleLogin = (req, res) => {
   let password = req.query.password;
 
   let select = `SELECT * FROM User WHERE Username ='${username}'`;
-  db.query(select, null, (err, results) => {
+  db.query(select, null, (err, users) => {
     if (err) {
       res.send('error in login query', err);
     } else {
-      if (results) {
-        bcrypt.compare(password, results[0].Hash_Password, function(err, result) {
+      if (users[0]) {
+        bcrypt.compare(password, users[0].Hash_Password, function(err, result) {
           if (result === true) {
-            res.send(results[0]);
+            delete users[0].Hash_Password;
+            res.send(users[0]);
           } else {
             res.send('error in bcrypcompare');
           }

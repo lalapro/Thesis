@@ -12,8 +12,11 @@ class Home extends Component {
 
   render() {
     return (
+
       <View style={{flex: 1}}>
-        <Navbar />
+        <Navbar
+          screenProps={this.props}
+          />
       </View>
     );
   }
