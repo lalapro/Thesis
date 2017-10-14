@@ -9,6 +9,7 @@ import Profile from './Profile';
 import Login from '../Login/Login.js'
 import Home from '../Home/Home';
 import EcoSystem from './EcoSystem';
+import TaskBuilder from '../Tasks/TaskBuilder';
 
 class Logout extends React.Component {
 	constructor(props) {
@@ -52,7 +53,10 @@ const NavigationBar = DrawerNavigator(
 			screen: Map
 		},
 		Logout: {
-			screen: Logout
+			screen: Login
+		},
+		TaskBuilder: {
+			screen: TaskBuilder
 		}
 	},
 	{

@@ -73,8 +73,11 @@ export default class App extends React.Component {
   }
 
   render() {
-
-    if (this.state.isLoggedIn === true) {
+    if (this.state.createdAccount) {
+      return (
+        <Home />
+      )
+    } else if (this.state.isLoggedIn) {
       return (
         <Home 
           logOutUser={ this.logOutUser }/>
