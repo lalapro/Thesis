@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TextInput } from 'react-native';
 
-
 class LoginForm extends Component {
   constructor(props) {
     super(props);
