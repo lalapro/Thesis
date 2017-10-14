@@ -53,7 +53,7 @@ export default class App extends React.Component {
       )
     } else if (this.state.isLoggedIn) {
       return (
-        <Map />
+        <Home />
       )
     }  else {
       if (!this.state.signingUp) {
