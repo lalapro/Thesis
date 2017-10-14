@@ -48,7 +48,7 @@ class CategoryPicker extends Component {
 
   render() {
     return(
-      <View>
+      <View style={StyleSheet.picker}>
         <Picker
           selectedValue={this.state.category}
           onValueChange={this.changeCategory}
@@ -73,5 +73,24 @@ class CategoryPicker extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  input: {
+    height: 30,
+    marginTop: 10,
+    paddingHorizontal: 10,
+    color: '#8A7D80',
+    borderColor: '#8A7D80', 
+    borderWidth: 1
+  },
+  picker: {
+    height: 40,
+    backgroundColor: 'gray',
+    borderColor: 'black'
+  }
+});
 
 export default CategoryPicker;

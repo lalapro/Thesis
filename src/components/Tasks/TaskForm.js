@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, Picker } from 'react-native';
-import TaskDatePicker from './DatePicker.js';
-import CategoryPicker from './CategoryPicker.js';
 
 class TaskForm extends Component {
   constructor(props) {
@@ -29,25 +27,6 @@ class TaskForm extends Component {
           placeholder="Description"
           style={styles.input} 
         />
-        <TaskDatePicker placeholder="Start" onSelect={(startTime) => this.props.handleStartChange(startTime)} />
-        <TaskDatePicker placeholder="End" onSelect={(endTime) => this.props.handleEndChange(endTime)} />
-        <TextInput
-          onChangeText={(location) => this.props.handleLocationChange(location)}
-          placeholder="Attach a Location"
-          style={styles.input} 
-        />
-        <CategoryPicker style={styles.picker} onSelect={() => this.props.handleCategoryChange()}/>
-        <Picker
-          style={styles.picker} 
-          selectedValue={this.state.frequency}
-          onValueChange={(itemValue) => this.changeFrequency(itemValue)}
-        >
-          <Picker.Item label="Does not repeat" value="no-repeat" />
-          <Picker.Item label="Daily" value="daily" />
-          <Picker.Item label="Weekly" value="weekly" />
-          <Picker.Item label="Monthly" value="monthly" />
-          <Picker.Item label="Yearly" value="yearly" />
-        </Picker>
       </View>
     )
   }

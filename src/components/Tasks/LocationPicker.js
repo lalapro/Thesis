@@ -8,16 +8,16 @@ class LocationPicker extends Component {
     this.state = {
       categories: [],
       newLocation: '',
-      location: '',
+      location: 'Attach a Location',
       created: '',
     }
-    this.newLocation = this.newLocation.bind(this);
+
     this.changeLocation = this.changeLocation.bind(this);
   }
   //axios.get for existing categories
   componentWillMount() {
     //give axios user id and get Location names
-    axios.get('http://10.16.1.218:3000/categories', {params: {username: 'krb'}})
+    axios.get('http://10.16.1.218:3000/markers', {params: {username: 'krb'}})
       .then((response) => {
         let arr = response.data;
         let categories = arr.map((row) => {
@@ -34,21 +34,8 @@ class LocationPicker extends Component {
     this.props.onSelect(location);
   }
 
-  newLocation() {
-    let location = this.state.location;
-    axios.post('http://10.16.1.218:3000/categories', {location, username: 'krb'})
-      .then((response) => {
-        console.log(`save location ${response}`)
-      })
-      .catch((err) => {
-        console.error(err)
-      })
-    
-  }
-
   render() {
     return(
-      <View>
         <Picker
           selectedValue={this.state.location}
           onValueChange={this.changeLocation}
@@ -61,15 +48,6 @@ class LocationPicker extends Component {
             }) : ''
           }
         </Picker>
-        <TextInput
-          onChangeText={this.changeLocation}
-          placeholder="Create a new location"
-        />
-        <Button
-          onPress={this.newLocation}
-          title="Save Location"
-        />
-      </View>
     )
   }
 }
