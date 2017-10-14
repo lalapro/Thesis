@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TextInput, Picker } from 'react-native';
+import { StyleSheet, View, TextInput, Picker, Button } from 'react-native';
+import TaskDatePicker from './DatePicker.js';
+import LocationPicker from './LocationPicker.js';
+import CategoryPicker from './CategoryPicker.js';
 
 class TaskForm extends Component {
   constructor(props) {
@@ -27,6 +30,25 @@ class TaskForm extends Component {
           placeholder="Description"
           style={styles.input} 
         />
+        <TaskDatePicker placeholder="Start" onSelect={(startTime) => this.props.handleStartChange(startTime)} />
+        <TaskDatePicker placeholder="End" onSelect={(endTime) => this.props.handleEndChange(endTime)} />
+        <LocationPicker style={styles.picker} onSelect={(itemValue) => this.props.handleLocationChange(itemValue)}/>
+        <CategoryPicker style={styles.picker} onSelect={(itemValue) => this.props.handleCategoryChange(itemValue)}/>
+        <Picker
+          style={[styles.onePicker]} itemStyle={styles.onePickerItem}
+          selectedValue={this.state.frequency}
+          onValueChange={(itemValue) => this.changeFrequency(itemValue)}
+        >
+          <Picker.Item label="Does not repeat" value="no-repeat" />
+          <Picker.Item label="Daily" value="daily" />
+          <Picker.Item label="Weekly" value="weekly" />
+          <Picker.Item label="Monthly" value="monthly" />
+          <Picker.Item label="Yearly" value="yearly" />
+        </Picker>
+        <Button
+          onPress={this.props.saveTask}
+          title="Save Task"
+        />
       </View>
     )
   }
@@ -45,7 +67,18 @@ const styles = StyleSheet.create({
     borderWidth: 1
   },
   picker: {
-    height: 40
+    width: 200,
+  },
+  pickerItem: {
+    color: '#8A7D80'
+  },
+  onePicker: {
+    width: 200,
+    height: 44,
+  },
+  onePickerItem: {
+    height: 44,
+    color: '#8A7D80'
   }
 });
 
