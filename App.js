@@ -12,21 +12,32 @@ export default class App extends React.Component {
     this.state = {
       isLoggedIn: false,
       signingUp: false,
-      createdAccount: false,
-      user: {}
+      user: {},
+      tasks: [],
+      locations: [],
+      finishedCheck: false
     }
-    this.LogInUser = this.LogInUser.bind(this);
+    this.logInUser = this.logInUser.bind(this);
+    this.logOutUser = this.logOutUser.bind(this);
     this.goToSignUp = this.goToSignUp.bind(this);
     this.backToLogIn = this.backToLogIn.bind(this);
+    this.finishedAsyncCheck = this.finishedAsyncCheck.bind(this);
   }
 
-  LogInUser(user) {
+  logInUser(user) {
     AsyncStorage.setItem('isLoggedIn', JSON.stringify(true));
     this.setState({
       isLoggedIn: true,
       user: user
-    });
+    })
   }
+  logOutUser() {
+		AsyncStorage.setItem('isLoggedIn', JSON.stringify(false));
+    this.setState({
+      isLoggedIn: false,
+      user: {}
+    })
+	}
   goToSignUp() {
     this.setState({
       signingUp: true
@@ -37,37 +48,51 @@ export default class App extends React.Component {
       signingUp: false
     })
   }
+  
+  finishedAsyncCheck() {
+    this.setState({
+      finishedCheck: true
+    })
+  }
+
   componentDidMount() {
     AsyncStorage.getItem('isLoggedIn')
-      .then((value) => {
-        JSON.parse(value);
-        this.setState({isLoggedIn: value});
-      })
-      .done();
+    .then((value) => {
+      JSON.parse(value);
+      this.setState({isLoggedIn: value});
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .then((res) => {
+      this.finishedAsyncCheck();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   }
 
   render() {
-    if (this.state.createdAccount) {
+
+    if (this.state.isLoggedIn === true) {
       return (
-        <TaskBuilder />
+        <Home 
+          logOutUser={ this.logOutUser }/>
       )
-    } else if (this.state.isLoggedIn) {
-      return (
-        <Home />
-      )
-    }  else {
-      if (!this.state.signingUp) {
+    } else {
+      if (this.state.signingUp === true) {
         return (
-          <Login
-            LogInUser={ this.LogInUser }
-            goToSignUp={ this.goToSignUp }
+          <Signup 
+            backToLogIn={ this.backToLogIn }
+            logInUser={ this.logInUser }
             />
         )
       } else {
         return (
-          <Signup
-            LogInUser={ () => {this.setState({createdAccount: true})}}
-            backToLogIn={ this.backToLogIn }/>
+          <Login 
+            logInUser={ this.logInUser }
+            goToSignUp={ this.goToSignUp }
+            />
         )
       }
     }
