@@ -1,5 +1,4 @@
 const express = require('express');
-const sequelize = require('sequelize');
 const db = require('../../db/index.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -27,4 +26,4 @@ const handleLogin = (req, res) => {
   })
 }
 
-module.exports = handleLogin; 
+module.exports = handleLogin;

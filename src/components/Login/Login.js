@@ -21,7 +21,7 @@ export default class Login extends Component {
     let username = this.state.username;
     let password = this.state.password;
 
-    axios.get('http://10.16.1.131:3000/login', {
+    axios.get('http://10.16.1.152:3000/login', {
       params: {
         username: username,
         password: password

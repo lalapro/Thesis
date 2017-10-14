@@ -4,7 +4,7 @@ import { DrawerNavigator } from 'react-navigation';
 
 // import FirstScreen from './FirstScreen';
 // import SecondScreen from './SecondScreen';
-import Map from './Map.js';
+import Map from '../Map/MapStack';
 import Profile from './Profile';
 import Login from '../Login/Login.js'
 import Home from '../Home/Home';
@@ -31,11 +31,11 @@ class Logout extends React.Component {
 }
 
 const NavigationBar = DrawerNavigator(
-	{ 
+	{
 		// ' ': {
 		// 	path: '/',
 		// 	screen: Main,
-		// 	// navigationOptions: {	
+		// 	// navigationOptions: {
 		// 	// 	drawerIcon: ({tintColor}) => {
 		// 	// 		<Image source={require('./Images/toast.png')} style={{width: 70, height: 70, marginLeft: 40}}
 		// 	// 		/>
@@ -61,7 +61,7 @@ const NavigationBar = DrawerNavigator(
 	},
 	{
 		initialRouteName: 'Profile',
-		initialRouteName: 'Home', 
+		initialRouteName: 'Home',
 		drawerPosition: 'left',
 		drawerWidth: 100,
 		alignItems: 'center',

@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 import Login from './src/components/Login/Login.js';
 import Signup from './src/components/Login/Signup.js';
 import TaskBuilder from './src/components/Tasks/TaskBuilder.js';
-import Map from './src/components/Frontend/Map.js';
 import Home from './src/components/Home/Home.js'
 
 export default class App extends React.Component {
@@ -48,7 +47,7 @@ export default class App extends React.Component {
       signingUp: false
     })
   }
-  
+
   finishedAsyncCheck() {
     this.setState({
       finishedCheck: true
@@ -79,20 +78,20 @@ export default class App extends React.Component {
       )
     } else if (this.state.isLoggedIn) {
       return (
-        <Home 
+        <Home
           logOutUser={ this.logOutUser }/>
       )
     } else {
       if (this.state.signingUp === true) {
         return (
-          <Signup 
+          <Signup
             backToLogIn={ this.backToLogIn }
             logInUser={ this.logInUser }
             />
         )
       } else {
         return (
-          <Login 
+          <Login
             logInUser={ this.logInUser }
             goToSignUp={ this.goToSignUp }
             />

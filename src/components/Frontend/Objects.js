@@ -22,7 +22,7 @@ export default class Objects extends Component {
 			])
 			// onPanResponderRelease: (event, gestureState) => {
 			// 	Animated.spring(this, {
-			// 		toValue: {x: 0, y: 0}					
+			// 		toValue: {x: 0, y: 0}
 			// 	}).start();
 			// }
 		});
@@ -34,7 +34,7 @@ export default class Objects extends Component {
 
 	animate(){
 		return this.animations.map((ele, i) => {
-			console.log(this.panResponder)
+			// console.log(this.panResponder)
 			let height = Dimensions.get('window').height * Math.random() * 0.6;
 			let width = Dimensions.get('window').width * Math.random() * 0.9;
 			Animated.timing(ele, {

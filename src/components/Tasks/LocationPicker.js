@@ -17,7 +17,7 @@ class LocationPicker extends Component {
   //axios.get for existing categories
   componentWillMount() {
     //give axios user id and get Location names
-    axios.get('http://10.16.1.218:3000/markers', {params: {username: 'krb'}})
+    axios.get('http://10.16.1.152:3000/markers', {params: {username: 'krb'}})
       .then((response) => {
         let arr = response.data;
         let categories = arr.map((row) => {
@@ -41,7 +41,7 @@ class LocationPicker extends Component {
           selectedValue={this.state.location}
           onValueChange={this.changeLocation}
         >
-          {this.state.categories ? 
+          {this.state.categories ?
             this.state.categories.map((location, i) => {
               return (
                 <Picker.Item key={i} label={location} value={location} />
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     paddingHorizontal: 10,
     color: '#8A7D80',
-    borderColor: '#8A7D80', 
+    borderColor: '#8A7D80',
     borderWidth: 1
   },
   picker: {

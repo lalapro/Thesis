@@ -2,46 +2,19 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, Animated, Image, Dimensions, Button, TouchableOpacity } from "react-native";
 import { Components, MapView, Permissions, Constants } from 'expo';
 import { StackNavigator } from 'react-navigation';
+import axios from 'axios';
 import Location from './AddLocation.js';
 import GetCurrentLocation from './GetCurrentLocation';
 
-
 const { width, height } = Dimensions.get("window");
 
-class MapScreen extends Component {
+export default class MapScreen extends Component {
   static navigationOptions = {
     title: 'Map',
   };
 
   state = {
-    markers: [{
-        coordinate: {
-          latitude: 40.750673,
-          longitude: -73.976465,
-        },
-        title: "Work",
-        description: "Hack Reactor",
-        image: require("../assets/egg.png"),
-      },
-      {
-        coordinate: {
-          latitude: 40.7129109,
-          longitude: -73.9671834,
-        },
-        title: "Home",
-        description: "Mah House",
-        image: require("../assets/egg2.png"),
-      },
-      {
-        coordinate: {
-          latitude: 40.7295174,
-          longitude: -73.9975552,
-        },
-        title: "School",
-
-        description: "NYU",
-        image: require("../assets/egg3.png")
-    }],
+    markers: [],
     region: {
       latitude: 0,
       longitude: 0,
@@ -49,15 +22,10 @@ class MapScreen extends Component {
       longitudeDelta: 0,
     },
     currentLocation: {},
-    markerID: [],
     render: false,
     iconLoaded: false
   };
 
-  componentWillMount() {
-    this.index = 0;
-    this.animation = new Animated.Value(0);
-  }
 
   componentDidMount() {
     const { params } = this.props.navigation.state;
@@ -66,17 +34,27 @@ class MapScreen extends Component {
         errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
       });
     } else {
-      GetCurrentLocation().then(location => {
-        this.setState({
-          region: {
-            latitude: location.coords.latitude,
-            longitude: location.coords.longitude,
-            latitudeDelta: 0.04864195044303443,
-            longitudeDelta: 0.040142817690068,
-          }
-        }, () => this.updateCurrentLocation())
-      })
-      .then(res => this.setState({render: true}))
+      console.log('map rendering...should get markers')
+      axios.get('http://10.16.1.152:3000/mapMarkers', {params: {user: 777}})
+        .then(markers => this.setState({
+          markers: markers.data
+        }))
+        .then(res => {
+          console.log(this.state.markers)
+          GetCurrentLocation().then(location => {
+            this.setState({
+              region: {
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
+                latitudeDelta: 0.04864195044303443,
+                longitudeDelta: 0.040142817690068,
+              }
+            }, () => this.updateCurrentLocation())
+          })
+          .then(res => this.setState({render: true}))
+          .catch(err => console.log(err))
+        })
+        .catch(err => console.log(err))
     }
   }
 
@@ -118,7 +96,6 @@ class MapScreen extends Component {
   render() {
     const { navigate } = this.props.navigation;
     const { params } = this.props.navigation.state;
-
     return this.state.render ? (
       <View style={styles.container}>
         <MapView
@@ -139,12 +116,12 @@ class MapScreen extends Component {
             return (
               <MapView.Marker
                 key={index}
-                coordinate={marker.coordinate}
-                title={marker.title}
-                description={marker.description}
-                identifier={marker.title}
+                coordinate={{latitude: marker.Latitude, longitude: marker.Longitude}}
+                title={marker.Title}
+                description={marker.Description}
+                identifier={marker.Title}
                 >
-                <Image source={marker.image} style={styles.marker} />
+                <Image source={images[marker.Avatar][1]} style={styles.marker} />
               </MapView.Marker>
             );
           })}
@@ -160,27 +137,14 @@ class MapScreen extends Component {
           {this.state.markers.map((marker, index) => (
             <TouchableOpacity key={index} onPress={() => this.zoom(marker)} style={styles.cardContainer}>
               <Text style={styles.cardtitle}>
-                {marker.title}
+                {marker.Title}
               </Text>
-              <Image source={marker.image} style={styles.cardImage}/>
-              {/* <View style={styles.textContent}>
-                <Text style={styles.cardtitle}>
-                  {marker.title}
-                </Text>
-                <Text style={styles.cardDescription}>
-                  {marker.description}
-                </Text>
-              </View> */}
+              <Image source={images[marker.Avatar][1]} style={styles.cardImage}/>
             </TouchableOpacity>
           ))}
-          {/* <View style={styles.card}>
-            <Image source={require("../assets/plus.png")} style={styles.cardImage} onTouchEnd={() => navigate('Avatar')}/>
-            <View style={styles.textContent}>
-              <Text style={styles.cardtitle}>
-                Add a location
-              </Text>
-            </View>
-          </View> */}
+          <TouchableOpacity onPress={() => navigate('Avatar')} style={styles.cardContainer}>
+            <Image source={require("../assets/plus.png")} style={styles.cardImage}/>
+          </TouchableOpacity>
         </Animated.ScrollView>
         <TouchableOpacity style={styles.recenter} onPress={() => this.updateCurrentLocation()}>
           <Image source={require("../assets/egg6.png")} style={{width: 50, height: 50}} />
@@ -188,59 +152,22 @@ class MapScreen extends Component {
       </View>
     ) : (
       <View>
-        <Text>
-          Can't load map.
-        </Text>
+        <Image source={require("../assets/loading.gif")} style={{width: 200, height: 200}}/>
       </View>
     )
   }
 }
 
-class Avatar extends React.Component {
-  static navigationOptions = {
-    title: 'Choose your ecobuddy!'
-  };
-
-  render() {
-    const { navigate } = this.props.navigation;
-    const { params } = this.props.navigation.state;
-    return (
-      <View style={styles.ecoContainer}>
-        {images.map((pic, key) => {
-          return (
-            <Image
-              source={pic}
-              style={styles.ecoBuds}
-              onTouchEnd={() => navigate('Location', {avatar: pic})}
-            />
-          )
-        })}
-      </View>
-    );
-  }
-}
 
 const images = [
-  require("../assets/egg.png"),
-  require("../assets/egg2.png"),
-  require("../assets/egg4.png"),
-  require("../assets/egg5.png"),
-  require("../assets/egg6.png")
+  [0, require("../assets/egg.png")],
+  [1, require("../assets/egg2.png")],
+  [2, require("../assets/egg4.png")],
+  [3, require("../assets/egg5.png")]
 ]
 
 
-const SimpleMap = StackNavigator({
-  Map: { screen: MapScreen },
-  Avatar: { screen: Avatar },
-  Location: { screen: Location },
-});
 
-
-export default class Map extends Component {
-  render() {
-    return <SimpleMap />;
-  }
-}
 
 const CARD_HEIGHT = height / 5;
 const CARD_WIDTH = CARD_HEIGHT - 50;
