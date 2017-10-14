@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import{ StyleSheet, View, Image, Text, TouchableOpacity, Button, Picker } from 'react-native';
 import TaskForm from './TaskForm.js';
-import TaskDatePicker from './DatePicker.js';
-import LocationPicker from './LocationPicker.js';
-import CategoryPicker from './CategoryPicker.js';
 import axios from 'axios';
 
 class TaskBuilder extends Component {
@@ -96,25 +93,7 @@ class TaskBuilder extends Component {
           handleLocationChange={this.handleLocationChange}
           handleCategoryChange={this.handleCategoryChange}
           handleFrequencyChange={this.handleFrequencyChange}
-        />
-        <TaskDatePicker placeholder="Start" onSelect={(startTime) => this.handleStartChange(startTime)} />
-        <TaskDatePicker placeholder="End" onSelect={(endTime) => this.handleEndChange(endTime)} />
-        <LocationPicker style={styles.picker} onSelect={(itemValue) => this.handleLocationChange(itemValue)}/>
-        <CategoryPicker style={styles.picker} onSelect={(itemValue) => this.handleCategoryChange(itemValue)}/>
-        <Picker
-          style={styles.picker} 
-          selectedValue={this.state.frequency}
-          onValueChange={(itemValue) => this.changeFrequency(itemValue)}
-        >
-          <Picker.Item label="Does not repeat" value="no-repeat" />
-          <Picker.Item label="Daily" value="daily" />
-          <Picker.Item label="Weekly" value="weekly" />
-          <Picker.Item label="Monthly" value="monthly" />
-          <Picker.Item label="Yearly" value="yearly" />
-        </Picker> 
-        <Button
-          onPress={this.saveTask}
-          title="Save Task"
+          saveTask={this.saveTask}
         />
       </View>
     )
@@ -126,7 +105,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'lightblue',
-    // alignItems: 'center',
+    alignItems: 'center',
     justifyContent: 'center',
     top: 50,
     bottom: 50,

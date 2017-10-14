@@ -37,6 +37,7 @@ class LocationPicker extends Component {
   render() {
     return(
         <Picker
+          style={[styles.onePicker]} itemStyle={styles.onePickerItem}
           selectedValue={this.state.location}
           onValueChange={this.changeLocation}
         >
@@ -51,5 +52,33 @@ class LocationPicker extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  input: {
+    height: 30,
+    marginTop: 10,
+    paddingHorizontal: 10,
+    color: '#8A7D80',
+    borderColor: '#8A7D80', 
+    borderWidth: 1
+  },
+  picker: {
+    width: 200,
+  },
+  pickerItem: {
+    color: '#8A7D80'
+  },
+  onePicker: {
+    width: 200,
+    height: 44,
+  },
+  onePickerItem: {
+    height: 44,
+    color: '#8A7D80'
+  },
+});
 
 export default LocationPicker;

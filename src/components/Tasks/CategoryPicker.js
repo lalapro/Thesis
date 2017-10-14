@@ -50,6 +50,7 @@ class CategoryPicker extends Component {
     return(
       <View style={StyleSheet.picker}>
         <Picker
+          style={[styles.onePicker]} itemStyle={styles.onePickerItem}
           selectedValue={this.state.category}
           onValueChange={this.changeCategory}
         >
@@ -87,9 +88,18 @@ const styles = StyleSheet.create({
     borderWidth: 1
   },
   picker: {
-    height: 40,
-    backgroundColor: 'gray',
-    borderColor: 'black'
+    width: 200,
+  },
+  pickerItem: {
+    color: '#8A7D80'
+  },
+  onePicker: {
+    width: 200,
+    height: 44,
+  },
+  onePickerItem: {
+    height: 44,
+    color: '#8A7D80'
   }
 });
 
