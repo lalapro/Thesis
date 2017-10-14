@@ -79,7 +79,7 @@ class TaskBuilder extends Component {
         category: 'none',
         frequency: ''
       }))
-      .catch((err) => console.error('whaaaaaa', err))
+      .catch((err) => console.error(err))
   }
 
   render() {
@@ -95,6 +95,9 @@ class TaskBuilder extends Component {
           handleFrequencyChange={this.handleFrequencyChange}
           saveTask={this.saveTask}
         />
+        {this.state.saved ? 
+          <Text>Task Saved!</Text> : <Text>Don't forget to save.</Text>
+        }
       </View>
     )
   }
