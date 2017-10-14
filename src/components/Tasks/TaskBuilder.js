@@ -95,6 +95,9 @@ class TaskBuilder extends Component {
           handleFrequencyChange={this.handleFrequencyChange}
           saveTask={this.saveTask}
         />
+        {this.state.saved ? 
+          <Text>Task Saved!</Text> : <Text>Don't forget to save.</Text>
+        }
       </View>
     )
   }
