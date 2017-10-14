@@ -49,7 +49,7 @@ export default class App extends React.Component {
   render() {
     if (this.state.createdAccount) {
       return (
-        <TaskBuilder />
+        <Home />
       )
     } else if (this.state.isLoggedIn) {
       return (

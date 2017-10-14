@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import{ StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 import SignupForm from './SignupForm';
+import axios from 'axios';
 
 export default class Signup extends Component {
   constructor(props) {

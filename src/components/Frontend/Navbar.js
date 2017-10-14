@@ -9,6 +9,7 @@ import Profile from './Profile';
 import Login from '../Login/Login.js'
 import Home from '../Home/Home';
 import EcoSystem from './EcoSystem';
+import TaskBuilder from '../Tasks/TaskBuilder';
 
 
 const NavigationBar = DrawerNavigator(
@@ -37,6 +38,9 @@ const NavigationBar = DrawerNavigator(
 		},
 		Logout: {
 			screen: Login
+		},
+		TaskBuilder: {
+			screen: TaskBuilder
 		}
 
 	},
