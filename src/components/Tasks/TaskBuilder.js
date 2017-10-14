@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import{ StyleSheet, View, Image, Text, TouchableOpacity, Button } from 'react-native';
+import{ StyleSheet, View, Image, Text, TouchableOpacity, Button, Picker } from 'react-native';
 import TaskForm from './TaskForm.js';
+import TaskDatePicker from './DatePicker.js';
+import LocationPicker from './LocationPicker.js';
+import CategoryPicker from './CategoryPicker.js';
 import axios from 'axios';
 
 class TaskBuilder extends Component {
@@ -60,30 +63,59 @@ class TaskBuilder extends Component {
   }
 
   saveTask() {
-    let body = this.state;
-    axios.post('/newTask', {body})
-      .then((response) => this.setState({saved: 'Task Saved'}))
-      .catch((err) => console.error(err))
+    let title = this.state.title;
+    let description = this.state.description;
+    let startTime = this.state.startTime;
+    let endTime = this.state.endTime;
+    let location = this.state.location;
+    let category = this.state.category;
+    let frequency = this.state.frequency;
+    //need to send username to get userId
+    axios.post('http://10.16.1.218:3000/newTask', {title, description, startTime, endTime, location, category, frequency})
+      .then((response) => this.setState({
+        saved: 'Task Saved',
+        title: '',
+        description: '',
+        startTime: null,
+        endTime: null,
+        location: 'none',
+        category: 'none',
+        frequency: ''
+      }))
+      .catch((err) => console.error('whaaaaaa', err))
   }
 
   render() {
     return(
       <View style={styles.container}>
-        <View>
-          <TaskForm 
-            handleTaskTitleChange={this.handleTaskTitleChange}
-            handleDescriptionChange={this.handleDescriptionChange} 
-            handleStartChange={this.handleStartChange}
-            handleEndChange={this.handleEndChange}
-            handleLocationChange={this.handleLocationChange}
-            handleCategoryChange={this.handleCategoryChange}
-            handleFrequencyChange={this.handleFrequencyChange}
-          />
-          <Button
-            onPress={this.saveTask}
-            title="Save Task"
-          />
-        </View>
+        <TaskForm style={styles.formContainer}
+          handleTaskTitleChange={this.handleTaskTitleChange}
+          handleDescriptionChange={this.handleDescriptionChange} 
+          handleStartChange={this.handleStartChange}
+          handleEndChange={this.handleEndChange}
+          handleLocationChange={this.handleLocationChange}
+          handleCategoryChange={this.handleCategoryChange}
+          handleFrequencyChange={this.handleFrequencyChange}
+        />
+        <TaskDatePicker placeholder="Start" onSelect={(startTime) => this.handleStartChange(startTime)} />
+        <TaskDatePicker placeholder="End" onSelect={(endTime) => this.handleEndChange(endTime)} />
+        <LocationPicker style={styles.picker} onSelect={(itemValue) => this.handleLocationChange(itemValue)}/>
+        <CategoryPicker style={styles.picker} onSelect={(itemValue) => this.handleCategoryChange(itemValue)}/>
+        <Picker
+          style={styles.picker} 
+          selectedValue={this.state.frequency}
+          onValueChange={(itemValue) => this.changeFrequency(itemValue)}
+        >
+          <Picker.Item label="Does not repeat" value="no-repeat" />
+          <Picker.Item label="Daily" value="daily" />
+          <Picker.Item label="Weekly" value="weekly" />
+          <Picker.Item label="Monthly" value="monthly" />
+          <Picker.Item label="Yearly" value="yearly" />
+        </Picker> 
+        <Button
+          onPress={this.saveTask}
+          title="Save Task"
+        />
       </View>
     )
   }
@@ -93,9 +125,19 @@ class TaskBuilder extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'lightblue',
+    // alignItems: 'center',
+    justifyContent: 'center',
+    top: 50,
+    bottom: 50,
+   
+  },
+  formContainer: {
+    flex: 1,
     backgroundColor: 'white',
+    flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center',
-    justifyContent: 'center'
   }
 });
 

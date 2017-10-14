@@ -9,8 +9,12 @@ class TaskDatePicker extends Component {
   }
 
   showDateSelected(date) {
-    this.setState({date});
-    this.props.onSelect(date);
+    this.setState({
+      date
+    }, () => {
+      this.props.onSelect(this.state.date);
+    });
+   
   }
   
   render(){
