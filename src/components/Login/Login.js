@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import{ StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
-
 import axios from 'axios';
-
 import LoginForm from './LoginForm';
+import { onSignIn } from '../auth.js'
 
 export default class Login extends Component {
   constructor(props) {
@@ -12,29 +11,10 @@ export default class Login extends Component {
       username: "",
       password: ""
     }
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUserInput = this.handleUserInput.bind(this);
     this.handlePasswordInput = this.handlePasswordInput.bind(this);
   }
 
-  handleSubmit() {
-    let username = this.state.username;
-    let password = this.state.password;
-
-    axios.get('http://10.16.1.131:3000/login', {
-      params: {
-        username: username,
-        password: password
-      }
-    })
-      .then((res) => {
-        console.log(res.data);
-        this.props.logInUser(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
 
   handleUserInput(event) {
     this.setState({ username: event })
@@ -57,20 +37,20 @@ export default class Login extends Component {
 
         <View style={styles.formContainer}>
           <LoginForm
-            handleSubmit={this.handleSubmit}
+            
             handleUserInput={this.handleUserInput}
             handlePasswordInput={this.handlePasswordInput}
             />
         </View>
 
         <TouchableOpacity
-          onPress={this.handleSubmit}
+          onPress={ onSignIn }
           style={styles.buttonContainer}
           >
           <Text style={styles.buttonText}>LOGIN</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={this.props.goToSignUp}
+          onPress={() => this.props.navigation.navigate("SignUp")}
           style={styles.buttonContainer}
           >
           <Text style={styles.buttonText}>SIGNUP</Text>
@@ -89,7 +69,6 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     alignItems: 'center',
-    // flexGrow: 1,
     justifyContent: 'center'
   },
   logo: {
@@ -97,8 +76,6 @@ const styles = StyleSheet.create({
     height: 100,
   },
   formContainer: {
-    // alignItems: 'center',
-    // justifyContent: 'center'
   },
   buttonContainer: {
     alignItems: 'center',

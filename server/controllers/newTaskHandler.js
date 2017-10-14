@@ -1,7 +1,7 @@
 const express = require('express');
 const db = require('../../db/index.js');
 
-const handlenNewTask = (req, res) => {
+const handleNewTask = (req, res) => {
   let Title = req.body.title;
   let Description = req.body.description;
   let Date = req.body.date;
@@ -56,4 +56,4 @@ const handlenNewTask = (req, res) => {
   })  
 }
 
-module.exports = handlenNewTask;
+module.exports = handleNewTask;

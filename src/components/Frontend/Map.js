@@ -54,6 +54,24 @@ class MapScreen extends Component {
     iconLoaded: false
   };
 
+  retrieveTasks() {
+    axios.get('http://10.16.1.131:3000/tasks', {
+      params: {
+        //userID: userId
+      }
+    }) 
+    .then((res) => {
+      let tasks = res.data;
+      this.setState({
+        tasks: tasks
+      })
+    })
+  }
+
+  componentWillReceiveProps() {
+    this.retrieveTasks();
+  }
+
   componentWillMount() {
     this.index = 0;
     this.animation = new Animated.Value(0);
@@ -104,8 +122,6 @@ class MapScreen extends Component {
     })
   }
 
-
-
   zoom(marker) {
     this.map.animateToRegion(
       {
@@ -143,6 +159,9 @@ class MapScreen extends Component {
                 title={marker.title}
                 description={marker.description}
                 identifier={marker.title}
+                onPress={(e) => {
+                  this.props.retrieveTasks(e);
+                }}
                 >
                 <Image source={marker.image} style={styles.marker} />
               </MapView.Marker>
@@ -163,14 +182,7 @@ class MapScreen extends Component {
                 {marker.title}
               </Text>
               <Image source={marker.image} style={styles.cardImage}/>
-              {/* <View style={styles.textContent}>
-                <Text style={styles.cardtitle}>
-                  {marker.title}
-                </Text>
-                <Text style={styles.cardDescription}>
-                  {marker.description}
-                </Text>
-              </View> */}
+
             </TouchableOpacity>
           ))}
           {/* <View style={styles.card}>
@@ -237,8 +249,19 @@ const SimpleMap = StackNavigator({
 
 
 export default class Map extends Component {
+  constructor(props) {
+    super(props);
+    this.state={
+      tasks: []
+    };
+  }
+
   render() {
-    return <SimpleMap />;
+    return 
+      <SimpleMap
+        
+        retrieveTasks={this.props.retrieveTasks}
+      />;
   }
 }
 

@@ -1,5 +1,4 @@
 const express = require('express');
-const sequelize = require('sequelize');
 const db = require('../../db/index.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;

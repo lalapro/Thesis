@@ -4,7 +4,6 @@ import{ StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 
 import SignupForm from './SignupForm';
-import axios from 'axios';
 
 export default class Signup extends Component {
   constructor(props) {
@@ -35,8 +34,9 @@ export default class Signup extends Component {
     .catch((res) => {
       console.log(res);
     })
-
-    this.props.logInUser();
+    .then((res) => {
+      this.props.logInUser(username, password);
+    })
   }
 
   handleUserInput(event) {
@@ -74,13 +74,6 @@ export default class Signup extends Component {
           style={styles.buttonContainer}
           >
           <Text style={styles.buttonText}>SIGNUP</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={this.props.backToLogIn}
-          style={styles.buttonContainer}
-          >
-          <Text style={styles.buttonText}>BACK</Text>
         </TouchableOpacity>
 
       </View>

@@ -1,5 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
+import { SignedOut, SignedIn } from "./src/components/router.js"
+import { isSignedIn } from './src/components/auth.js'
+
 import Login from './src/components/Login/Login.js';
 import Signup from './src/components/Login/Signup.js';
 import TaskBuilder from './src/components/Tasks/TaskBuilder.js';
@@ -10,94 +13,45 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false,
-      signingUp: false,
-      user: {},
-      tasks: [],
-      locations: [],
-      finishedCheck: false
+      signedIn: false,
+      checkedSignIn: false
     }
     this.logInUser = this.logInUser.bind(this);
-    this.logOutUser = this.logOutUser.bind(this);
-    this.goToSignUp = this.goToSignUp.bind(this);
-    this.backToLogIn = this.backToLogIn.bind(this);
-    this.finishedAsyncCheck = this.finishedAsyncCheck.bind(this);
   }
 
-  logInUser(user) {
-    AsyncStorage.setItem('isLoggedIn', JSON.stringify(true));
-    this.setState({
-      isLoggedIn: true,
-      user: user
+  logInUser(username, password) {
+    axios.get('http://10.16.1.131:3000/login', {
+      params: {
+        username: username,
+        password: password
+      }
     })
-  }
-  logOutUser() {
-		AsyncStorage.setItem('isLoggedIn', JSON.stringify(false));
-    this.setState({
-      isLoggedIn: false,
-      user: {}
-    })
-	}
-  goToSignUp() {
-    this.setState({
-      signingUp: true
-    })
-  }
-  backToLogIn() {
-    this.setState({
-      signingUp: false
-    })
-  }
-  
-  finishedAsyncCheck() {
-    this.setState({
-      finishedCheck: true
-    })
+      .then((res) => {
+        console.log('loginUser data', res.data);
+        AsyncStorage.setItem('isLoggedIn', JSON.stringify(true));
+        this.setState({
+          isLoggedIn: true,
+          user: user
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
-  componentDidMount() {
-    AsyncStorage.getItem('isLoggedIn')
-    .then((value) => {
-      JSON.parse(value);
-      this.setState({isLoggedIn: value});
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .then((res) => {
-      this.finishedAsyncCheck();
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+  componentWillMount() {
+    isSignedIn()
+      .then(res => this.setState({ signedIn: res, checkedSignIn: true}))
+      .catch(err => console.log(err));
   }
 
   render() {
-    if (this.state.createdAccount) {
-      return (
-        <Home />
-      )
-    } else if (this.state.isLoggedIn) {
-      return (
-        <Home 
-          logOutUser={ this.logOutUser }/>
-      )
-    } else {
-      if (this.state.signingUp === true) {
-        return (
-          <Signup 
-            backToLogIn={ this.backToLogIn }
-            logInUser={ this.logInUser }
-            />
-        )
-      } else {
-        return (
-          <Login 
-            logInUser={ this.logInUser }
-            goToSignUp={ this.goToSignUp }
-            />
-        )
-      }
+    const { checkedSignIn, signedIn } = this.state;
+    
+    if (!checkedSignIn) {
+      return null;
     }
+
+    return <SignedIn />
   }
 }

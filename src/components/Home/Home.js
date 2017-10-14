@@ -12,7 +12,6 @@ export default class Home extends Component {
 
   render() {
     return (
-
       <View style={{flex: 1}}>
         <Navbar
           screenProps={this.props}
