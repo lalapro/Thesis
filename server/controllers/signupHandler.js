@@ -15,7 +15,6 @@ const handleSignup = (req, res) => {
     if (err) {
       res.status(404).send(`Encountered error during post ${err}`);
     } else {
-      console.log(results)
       if (results.length > 0) {
         res.status(404).send(`Username already exists.`);
       } else {

@@ -79,7 +79,7 @@ class TaskBuilder extends Component {
         category: 'none',
         frequency: ''
       }))
-      .catch((err) => console.error('whaaaaaa', err))
+      .catch((err) => console.error(err))
   }
 
   render() {
