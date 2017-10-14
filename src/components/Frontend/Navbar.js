@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, Image, Button } from 'react-native';
+import { Text, Image, Button, AsyncStorage } from 'react-native';
 import { DrawerNavigator } from 'react-navigation';
 
 // import FirstScreen from './FirstScreen';
@@ -10,6 +10,24 @@ import Login from '../Login/Login.js'
 import Home from '../Home/Home';
 import EcoSystem from './EcoSystem';
 
+class Logout extends React.Component {
+	constructor(props) {
+		super(props);
+		console.log(props.screenProps.logOutUser)
+	}
+	static navigationOptions = {
+    drawerLabel: 'Logout'
+  };
+
+  render() {
+    return (
+      <Button
+				onPress={this.props.screenProps.logOutUser}
+				title="LogOuttttt"
+			/>
+    );
+  }
+}
 
 const NavigationBar = DrawerNavigator(
 	{ 
@@ -28,17 +46,14 @@ const NavigationBar = DrawerNavigator(
 			screen: EcoSystem
 		},
 		Profile: {
-			path: '/profile',
 			screen: Profile
 		},
 		Map: {
-			path: '/map',
 			screen: Map
 		},
 		Logout: {
-			screen: Login
+			screen: Logout
 		}
-
 	},
 	{
 		initialRouteName: 'Profile',
@@ -50,6 +65,7 @@ const NavigationBar = DrawerNavigator(
 			activeTintColor: 'rgba(0, 0, 0, 0.3)'
 		}
 	}
+
 )
 
 export default NavigationBar;
