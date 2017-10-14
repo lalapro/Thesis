@@ -6,7 +6,8 @@ import { DrawerNavigator } from 'react-navigation';
 // import SecondScreen from './SecondScreen';
 import Map from './Map.js';
 import Profile from './Profile';
-import Main from '../Home/Home.js';
+import Home from '../Home/Home';
+import EcoSystem from './EcoSystem';
 
 const NavigationBar = DrawerNavigator(
 	{ 
@@ -20,6 +21,10 @@ const NavigationBar = DrawerNavigator(
 		// 	// 	}
 		// 	// }
 		// },
+		Home: {
+			path: '/',
+			screen: EcoSystem
+		},
 		Profile: {
 			path: '/profile',
 			screen: Profile
@@ -30,7 +35,7 @@ const NavigationBar = DrawerNavigator(
 		}
 	},
 	{
-		initialRouteName: 'Profile', 
+		initialRouteName: 'Home', 
 		drawerPosition: 'left',
 		drawerWidth: 100,
 		alignItems: 'center',

@@ -147,13 +147,19 @@ export default class Profile extends Component {
 	          onRequestClosed={() => {alert('Photo is not selected!!')}}
 	        >
 	         <View>
-	            <View style={{height: 470, opacity: 0}}>
-	            	<Image source={require('../assets/toastlogo.png')} style={{height: 430, opacity: 0}}/>
+	            <View style={{height: 470, opacity: 0.7, backgroundColor: '#ddd'}}>
+	            	<Image source={require('../assets/toastlogo.png')} style={{height: '100%', width: '100%', opacity: 0.8}}/>
 	            </View>
-	            <View style={{height: 200, backgroundColor: '#ddd', opacity: 0.7, marginTop: 20}}>
-	            	<Button title={`Take a photo`} onPress={this.takePhoto} style={styles.button} />
-	            	<Button title={`Photo from library`} onPress={this.pickPhoto} style={styles.button} />
-	            	<Button title={`Close`} onPress={() => {this.showModal(!this.state.visibleModal)}} style={styles.button} />
+	            <View style={{height: '100%', backgroundColor: '#ddd', opacity: 0.7}}>
+	          	  <View style={styles.button} >
+	            		<Button title={`Take a photo`} onPress={this.takePhoto}/>
+	            	</View>
+	            	<View style={styles.button} >
+	            		<Button title={`Photo from library`} onPress={this.pickPhoto} />
+	            	</View>
+	            	<View style={styles.button} >
+	            		<Button title={`Close`} onPress={() => {this.showModal(!this.state.visibleModal)}} />
+		          	</View>
 		          </View>
 	          </View>
 	        </Modal>
@@ -162,9 +168,6 @@ export default class Profile extends Component {
   }
 }
 
-		            // <Button onPress={this.showModal(!this.state.visibleModal)}>
-		            // Close
-		            // </Button>
 
 const styles = StyleSheet.create({
 	photo: {
@@ -189,7 +192,7 @@ const styles = StyleSheet.create({
 	map: {
 		flex: 1,
 		backgroundColor: 'red',
-		width: '100%'
+		width: '100%',
 	},
 	input: {
 		height: 30,
@@ -199,11 +202,15 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 10
 	},
 	button: {
-		backgroundColor: '#fff',
-		marginBottom: 10,
+		backgroundColor: '#ddd',
 		borderRadius: 30,
 		borderWidth: 3,
-		borderColor: 'black'
+		borderColor: 'black',
+		width: 250,
+		alignItems: 'center',
+		marginLeft: 60,
+		marginTop: 5,
+		marginBottom: 5
 	}
 })
 

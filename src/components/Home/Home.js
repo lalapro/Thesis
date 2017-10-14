@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import Navbar from '../Frontend/Navbar.js';
 
-class Home extends Component {
+export default class Home extends Component {
   constructor(props) {
     super(props);
-    state = {
+    this.state = {
 
     }
   }
@@ -25,4 +25,3 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Home;
