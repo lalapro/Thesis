@@ -6,12 +6,27 @@ import { DrawerNavigator } from 'react-navigation';
 // import SecondScreen from './SecondScreen';
 import Map from './Map.js';
 import Profile from './Profile';
-import Main from '../Home/Home.js';
 import Login from '../Login/Login.js'
+import Home from '../Home/Home';
+import EcoSystem from './EcoSystem';
 
 
 const NavigationBar = DrawerNavigator(
-	{
+	{ 
+		// ' ': {
+		// 	path: '/',
+		// 	screen: Main,
+		// 	// navigationOptions: {	
+		// 	// 	drawerIcon: ({tintColor}) => {
+		// 	// 		<Image source={require('./Images/toast.png')} style={{width: 70, height: 70, marginLeft: 40}}
+		// 	// 		/>
+		// 	// 	}
+		// 	// }
+		// },
+		Home: {
+			path: '/',
+			screen: EcoSystem
+		},
 		Profile: {
 			path: '/profile',
 			screen: Profile
@@ -27,6 +42,7 @@ const NavigationBar = DrawerNavigator(
 	},
 	{
 		initialRouteName: 'Profile',
+		initialRouteName: 'Home', 
 		drawerPosition: 'left',
 		drawerWidth: 100,
 		alignItems: 'center',
