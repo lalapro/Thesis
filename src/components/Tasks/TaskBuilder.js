@@ -60,9 +60,25 @@ class TaskBuilder extends Component {
   }
 
   saveTask() {
-    let body = this.state;
-    axios.post('http://10.16.1.218:3000/newTask', {body})
-      .then((response) => this.setState({saved: 'Task Saved'}))
+    let title = this.state.title;
+    let description = this.state.description;
+    let startTime = this.state.startTime;
+    let endTime = this.state.endTime;
+    let location = this.state.location;
+    let category = this.state.category;
+    let frequency = this.state.frequency;
+    //need to send username to get userId
+    axios.post('http://10.16.1.218:3000/newTask', {title, description, startTime, endTime, location, category, frequency})
+      .then((response) => this.setState({
+        saved: 'Task Saved',
+        title: '',
+        description: '',
+        startTime: null,
+        endTime: null,
+        location: 'none',
+        category: 'none',
+        frequency: ''
+      }))
       .catch((err) => console.error('whaaaaaa', err))
   }
 
@@ -70,7 +86,7 @@ class TaskBuilder extends Component {
     return(
       <View style={styles.container}>
         <View>
-          <TaskForm 
+          <TaskForm style={styles.formContainer}
             handleTaskTitleChange={this.handleTaskTitleChange}
             handleDescriptionChange={this.handleDescriptionChange} 
             handleStartChange={this.handleStartChange}
@@ -96,6 +112,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  formContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });
 

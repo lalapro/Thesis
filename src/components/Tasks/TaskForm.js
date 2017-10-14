@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, Picker } from 'react-native';
 import TaskDatePicker from './DatePicker.js';
+import CategoryPicker from './CategoryPicker.js';
 
 class TaskForm extends Component {
   constructor(props) {
@@ -28,19 +29,16 @@ class TaskForm extends Component {
           placeholder="Description"
           style={styles.input} 
         />
-        <TaskDatePicker placeholder="Start" onSelect={() => this.props.handleStartChange()} />
-        <TaskDatePicker placeholder="End" onSelect={() => this.props.handleEndChange()} />
+        <TaskDatePicker placeholder="Start" onSelect={(startTime) => this.props.handleStartChange(startTime)} />
+        <TaskDatePicker placeholder="End" onSelect={(endTime) => this.props.handleEndChange(endTime)} />
         <TextInput
-          onChangeText={() => this.props.handleLocationChange()}
+          onChangeText={(location) => this.props.handleLocationChange(location)}
           placeholder="Attach a Location"
           style={styles.input} 
         />
-        <TextInput
-          onChangeText={() => this.props.handleCategoryChange()}
-          placeholder="Attach a Category"
-          style={styles.input} 
-        />
+        <CategoryPicker style={styles.picker} onSelect={() => this.props.handleCategoryChange()}/>
         <Picker
+          style={styles.picker} 
           selectedValue={this.state.frequency}
           onValueChange={(itemValue) => this.changeFrequency(itemValue)}
         >
@@ -57,15 +55,18 @@ class TaskForm extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10
+    flex: 1
   },
   input: {
-    height: 40,
+    height: 30,
     marginTop: 10,
     paddingHorizontal: 10,
     color: '#8A7D80',
     borderColor: '#8A7D80', 
     borderWidth: 1
+  },
+  picker: {
+    height: 40
   }
 });
 

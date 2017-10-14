@@ -13,7 +13,7 @@ const handlenNewTask = (req, res) => {
   let Category = req.body.category;
   let Marker = req.body.location;
   let Username = req.body.username;
-  console.log(req.body, 'or', req.query, 'or', req.params)
+  console.log(req.body);
   let selectUsername = `SELECT ID FROM User WHERE Username = '${Username}'`;
   let selectCategory = `SELECT ID FROM CategoryDeets WHERE Category = '${Category}'`;
   let selectMarker = `SELECT ID FROM Marker WHERE Title = '${Marker}'`;
