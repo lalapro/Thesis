@@ -17,7 +17,7 @@ class CategoryPicker extends Component {
   //axios.get for existing categories
   componentWillMount() {
     //give axios user id and get category names
-    axios.get('http://10.16.1.218:3000/categories', {params: {username: 'krb'}})
+    axios.get('http://10.16.1.152:3000/categories', {params: {username: 'krb'}})
       .then((response) => {
         let arr = response.data;
         let categories = arr.map((row) => {
@@ -36,14 +36,14 @@ class CategoryPicker extends Component {
 
   newCategory() {
     let category = this.state.category;
-    axios.post('http://10.16.1.218:3000/categories', {category, username: 'krb'})
+    axios.post('http://10.16.1.152:3000/categories', {category, username: 'krb'})
       .then((response) => {
         console.log(`save category ${response}`)
       })
       .catch((err) => {
         console.error(err)
       })
-    
+
   }
 
   render() {
@@ -54,7 +54,7 @@ class CategoryPicker extends Component {
           selectedValue={this.state.category}
           onValueChange={this.changeCategory}
         >
-          {this.state.categories ? 
+          {this.state.categories ?
             this.state.categories.map((category, i) => {
               return (
                 <Picker.Item key={i} label={category} value={category} />
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     paddingHorizontal: 10,
     color: '#8A7D80',
-    borderColor: '#8A7D80', 
+    borderColor: '#8A7D80',
     borderWidth: 1
   },
   picker: {

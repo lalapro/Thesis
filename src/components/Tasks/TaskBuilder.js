@@ -48,7 +48,7 @@ class TaskBuilder extends Component {
   handleLocationChange(location) {
     this.setState({location})
   }
-  
+
   handleCategoryChange(category) {
     this.setState({category})
   }
@@ -56,9 +56,9 @@ class TaskBuilder extends Component {
   handleFrequencyChange(frequency) {
     this.setState({frequency})
   }
-  
+
   handleCheck(day) {
-    
+
   }
 
   saveTask() {
@@ -70,7 +70,7 @@ class TaskBuilder extends Component {
     let category = this.state.category;
     let frequency = this.state.frequency;
     //need to send username to get userId
-    axios.post('http://10.16.1.218:3000/newTask', {title, description, startTime, endTime, location, category, frequency})
+    axios.post('http://10.16.1.152:3000/newTask', {title, description, startTime, endTime, location, category, frequency})
       .then((response) => this.setState({
         saved: 'Task Saved',
         title: '',
@@ -98,7 +98,7 @@ class TaskBuilder extends Component {
       <View style={styles.container}>
         <TaskForm style={styles.formContainer}
           handleTaskTitleChange={this.handleTaskTitleChange}
-          handleDescriptionChange={this.handleDescriptionChange} 
+          handleDescriptionChange={this.handleDescriptionChange}
           handleStartChange={this.handleStartChange}
           handleEndChange={this.handleEndChange}
           handleLocationChange={this.handleLocationChange}
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     top: 50,
     bottom: 50,
-   
+
   },
   formContainer: {
     flex: 1,

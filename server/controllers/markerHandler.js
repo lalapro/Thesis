@@ -9,7 +9,7 @@ const handleMarkers = (req, res) => {
       res.status(404).send(`We encountered an error looking up your information ${err}`);
     } else {
       let User_ID = results[0].ID;
-      let selectCats = `SELECT Title FROM Marker WHERE User_ID = ${User_ID}`;
+      let selectCats = `SELECT * FROM Marker WHERE User_ID = ${User_ID}`;
       db.query(selectCats, null, (err, results) => {
         if (err) {
           res.status(404).send(`We encountered an error looking up the locations ${err}`);
